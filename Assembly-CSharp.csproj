@@ -69,6 +69,9 @@
  <Reference Include="Unity.Rider.Editor">
  <HintPath>C:/Users/Thibaut/Desktop/ReflexesTrainingAR/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.XR.WindowsMR.Editor">
+ <HintPath>C:/Users/Thibaut/Desktop/ReflexesTrainingAR/Library/ScriptAssemblies/Unity.XR.WindowsMR.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
  <HintPath>C:/Users/Thibaut/Desktop/ReflexesTrainingAR/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
@@ -78,14 +81,11 @@
  <Reference Include="Unity.PlasticSCM.Editor">
  <HintPath>C:/Users/Thibaut/Desktop/ReflexesTrainingAR/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>C:/Users/Thibaut/Desktop/ReflexesTrainingAR/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.XR.WindowsMR.Editor">
- <HintPath>C:/Users/Thibaut/Desktop/ReflexesTrainingAR/Library/ScriptAssemblies/Unity.XR.WindowsMR.Editor.dll</HintPath>
- </Reference>
  <Reference Include="Unity.XR.WindowsMR">
  <HintPath>C:/Users/Thibaut/Desktop/ReflexesTrainingAR/Library/ScriptAssemblies/Unity.XR.WindowsMR.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>C:/Users/Thibaut/Desktop/ReflexesTrainingAR/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>E:/Program Files/Unity Editor/2019.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
