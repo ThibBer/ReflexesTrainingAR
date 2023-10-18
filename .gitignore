@@ -5,3 +5,6 @@
 /Logs
 /obj
 /Temp
+
+Assets/WSATestCertificate.pfx
+Assets/WSATestCertificate.pfx.meta
