@@ -8,6 +8,7 @@
 - Windows Build Support
 
 ## Step 2 - visual studio 2017 COMMUNITY v15.9
+- [Download link](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)
 ### Components to check:
 - Universal Windows Platform
 - Game dev with Unity
