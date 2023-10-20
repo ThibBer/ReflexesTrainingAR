@@ -2,7 +2,7 @@
 ## Step 1 - Unity 2019
 - [Download link](https://unity.com/releases/editor/archive)
 ### Components to check:
-- Windows 10 Professional / Enterprise (Hyper-V)
+- Windows 10 Professional / Education / Enterprise (Hyper-V)
 - Unity
 - Microsoft Visual Studio Community
 - Universal Windows Platform
