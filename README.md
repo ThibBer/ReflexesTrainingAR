@@ -15,7 +15,6 @@
 - Game dev with Unity
 - .NET 4.0
 - desktop development with C++
-- Change SDK version to 10.0.17763 in HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0
 
 ## Step 3 - Windows Software Development kit
 - [Download link](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
@@ -48,6 +47,9 @@ In the right panel, select ´´´ReflexesTrainingAR´´´
 
 And set it as startup project.
 ![image](Assets/Readme_images/right_panel_vscode_set_as.png)
+
+# List of fixes
+- Change SDK version to 10.0.17763 in HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0
 
 ## Step 4
 Select ```Debug```, ```X86``` and ```HoloLens simulator``` as run options, then click on the green arrow to run the project.
