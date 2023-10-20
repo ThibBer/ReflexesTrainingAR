@@ -1,6 +1,7 @@
 # Installation steps for development tools and emulator
 ## Step 1 - Unity 2019
 - [Download link](https://unity.com/releases/editor/archive)
+- [Unity Hub](https://unity.com/unity-hub)
 ### Components to check:
 - Windows 10 Professional / Education / Enterprise (Hyper-V)
 - Unity
