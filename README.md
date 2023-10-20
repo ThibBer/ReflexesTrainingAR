@@ -1,7 +1,8 @@
-# Installation steps for development tools
+# Installation steps for development tools and emulator
 ## Step 1 - Unity 2019
 - [Download link](https://unity.com/releases/editor/archive)
 ### Components to check:
+- Windows 10 Professional / Enterprise (Hyper-V)
 - Unity
 - Microsoft Visual Studio Community
 - Universal Windows Platform
@@ -14,17 +15,17 @@
 - Game dev with Unity
 - .NET 4.0
 - desktop development with C++
-- change sdk version to 10.0.17763 in HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0
+- Change SDK version to 10.0.17763 in HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0
 
 ## Step 3 - Windows Software Development kit
 - [Download link](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
 
-## Step 4 - HoloLens simulator
+## Step 4 - HoloLens emulator
 - [Download link](https://learn.microsoft.com/en-us/windows/mixed-reality/develop/advanced-concepts/hololens-emulator-archive)
 (Link at the bottom of page for gen 1)
 - [Direct link](https://go.microsoft.com/fwlink/?linkid=2065980)
 
-## Step 5 - Enable developer mode
+## Step 5 - Enable developer mode (not always required)
 
 ![image](Assets/Readme_images/developer_mode.PNG)
 
