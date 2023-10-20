@@ -31,7 +31,9 @@
 # Build the project
 ## Step 1
 Import and build the project with Unity.
-- File -> Build settings
+- Go to: File -> Build settings
+- Select the following settings and click on Build.
+
 ![image](Assets/Readme_images/build_settings.PNG)
 
 ## Step 2
@@ -42,10 +44,12 @@ File -> Open -> Project/solution...
 and then select ```ReflexesTrainingAR.sln``` inside the build folder.
 
 ## Step 3
-In the right panel, select ´´´ReflexesTrainingAR´´´
+In the right panel, select ```ReflexesTrainingAR```
+
 ![image](Assets/Readme_images/right_panel_vscode.PNG)
 
 And set it as startup project.
+
 ![image](Assets/Readme_images/right_panel_vscode_set_as.png)
 
 ## Step 4
