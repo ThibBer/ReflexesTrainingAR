@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
-using Random = System.Random;
+using System.Collections;
 
 public class ButtonsManager : MonoBehaviour
 {
     #region Fields
+    [SerializeField]
+    private GameObject _buttonPrefab;
 
     private GestureRecognizer m_GestureRecognizer;
-    private List<Button> m_Buttons;
-    private Random m_Random;
-
+    private List<GameObject> m_Buttons;
+    private int numberOfButtons = 15; // TODO : get this value from start menu
     #endregion
 
     #region Constructors
@@ -27,8 +28,7 @@ public class ButtonsManager : MonoBehaviour
 
     private void Awake()
     {
-        m_Random = new Random();
-        
+
         m_GestureRecognizer = new GestureRecognizer();
         m_GestureRecognizer.StartCapturingGestures();
         m_GestureRecognizer.Tapped += OnTapped;
@@ -36,15 +36,33 @@ public class ButtonsManager : MonoBehaviour
 
     private void Start()
     {
-        m_Buttons = FindObjectsOfType<Button>().ToList();
-        Debug.Log("Buttons count : " + m_Buttons.Count);
+        spawnButtons();
+        StartCoroutine(startGameRoutine());
+    }
 
-        if (m_Buttons.Count <= 1)
+    IEnumerator startGameRoutine()
+    {
+        for (int i = 0; i < numberOfButtons; i++)
         {
-            throw new Exception("Missing buttons for ButtonsManager (must have at least 2 buttons !)");
+            m_Buttons[i].GetComponent<Button>().SetVisibility(true);
+            yield return new WaitForSeconds(30);
+            m_Buttons[i].GetComponent<Button>().SetVisibility(false);
         }
+    }
+        
 
-        m_Buttons[m_Random.Next(0, m_Buttons.Count - 1)].IsActive = true;
+    private void spawnButtons()
+    {
+        m_Buttons = new List<GameObject>();
+        for (int i = 0; i < numberOfButtons; i++)
+        {
+            float x = Camera.main.transform.position.x;
+            float y = Camera.main.transform.position.y;
+            
+            GameObject button = Instantiate(_buttonPrefab, new Vector3(UnityEngine.Random.Range(x+9f, x-9f), UnityEngine.Random.Range(y-5f, y+5f), 30), Quaternion.identity);
+            m_Buttons.Add(button);
+            button.transform.SetParent(this.transform, false);          
+        }
     }
 
     private void OnDestroy()
@@ -59,8 +77,6 @@ public class ButtonsManager : MonoBehaviour
 
     private void OnTapped(TappedEventArgs tappedEventArgs)
     {
-        Debug.Log("OnTapped");
-        
         // https://docs.unity3d.com/2018.2/Documentation/Manual/SpatialMappingCollider.html
         var gazeRay = new Ray(tappedEventArgs.headPose.position, tappedEventArgs.headPose.forward);
         var hits = Physics.RaycastAll(gazeRay, float.MaxValue);
@@ -68,31 +84,9 @@ public class ButtonsManager : MonoBehaviour
         foreach (var hit in hits)
         {
             var targetObject = hit.collider.gameObject;
-            Debug.Log($"Hit Object **\"**{targetObject}**\"** at position **\"**{hit.point}**\"**");
-            
-            var button = targetObject.GetComponent<Button>();
-            if (button != null && button.IsActive)
-            {
-                button.IsActive = false;
-                
-                var nextButton = GetNextButton(button);
-                nextButton.IsActive = true;
-            }
+            targetObject.GetComponent<Button>().SetVisibility(false);
         }
     }
 
-    private Button GetNextButton(Button clickedButton)
-    {
-        var iClickedButton = m_Buttons.IndexOf(clickedButton);
-        var iRandomButton = m_Random.Next(0, m_Buttons.Count);
-
-        while (iRandomButton == iClickedButton)
-        {
-            iRandomButton = m_Random.Next(0, m_Buttons.Count - 1);
-        }
-
-        return m_Buttons[iRandomButton];
-    }
-    
     #endregion
 }

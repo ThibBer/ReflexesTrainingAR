@@ -643,7 +643,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 00ca6d2d6d1edb01
+  metroCertificateNotAfter: 0059189e3b23db01
   metroApplicationDescription: Template_3D
   wsaImages: {}
   metroTileShortName: ReflexesTrainingAR

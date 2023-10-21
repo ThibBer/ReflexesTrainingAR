@@ -21,9 +21,6 @@ public class Button : MonoBehaviour
             if (m_IsActive != value)
             {
                 m_IsActive = value;
-                
-                Debug.Log("Set IsActive : " + value + " " + name);
-                
                 UpdateColor();
             }
         }
@@ -33,9 +30,16 @@ public class Button : MonoBehaviour
 
     #region Methods
 
+    public void SetVisibility(bool visibility)
+    {
+
+        this.gameObject.SetActive(visibility);
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
+        this.gameObject.SetActive(false);
         UpdateColor();
     }
 
@@ -47,7 +51,6 @@ public class Button : MonoBehaviour
     private void SetColor(Color color)
     {
         GetComponent<Renderer>().material.color = color;
-        Debug.Log("Set color of : " + name + " - " + color);
     }
     
     #endregion
