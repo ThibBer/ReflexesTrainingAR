@@ -27,7 +27,7 @@
 
 ## Step 5 - Enable developer mode (not always required)
 
-![image](Assets/Readme_images/developer_mode.PNG)
+![image](ReadMeImages/developer_mode.PNG)
 
 # Build the project
 ## Step 1
@@ -35,7 +35,7 @@ Import and build the project with Unity.
 - Go to: File -> Build settings
 - Select the following settings and click on Build.
 
-![image](Assets/Readme_images/build_settings.PNG)
+![image](ReadMeImages/build_settings.PNG)
 
 ## Step 2
 Open the produced build folder in Visual Studio.
@@ -47,15 +47,15 @@ and then select ```ReflexesTrainingAR.sln``` inside the build folder.
 ## Step 3
 In the right panel, select ```ReflexesTrainingAR```
 
-![image](Assets/Readme_images/right_panel_vscode.PNG)
+![image](ReadMeImages/right_panel_vscode.PNG)
 
 And set it as startup project.
 
-![image](Assets/Readme_images/right_panel_vscode_set_as.png)
+![image](ReadMeImages/right_panel_vscode_set_as.png)
 
 ## Step 4
 Select ```Debug```, ```X86``` and ```HoloLens simulator``` as run options, then click on the green arrow to run the project.
-![image](Assets/Readme_images/run_options.png)
+![image](ReadMeImages/run_options.png)
 
 # List of fixes
 - Change SDK version to 10.0.17763 in HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0 (Registry)
