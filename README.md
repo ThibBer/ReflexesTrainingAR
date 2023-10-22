@@ -58,4 +58,5 @@ Select ```Debug```, ```X86``` and ```HoloLens simulator``` as run options, then 
 ![image](Assets/Readme_images/run_options.png)
 
 # List of fixes
-- Change SDK version to 10.0.17763 in HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0
+- Change SDK version to 10.0.17763 in HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0 (Registry)
+- Make sure the folder in HKEY_LOCAL_MACHINE\Software\Microsoft\Windows Kits\Installed Roots (Registry) is Program Files (x86). Then, reinstall the SDK and the emulator.

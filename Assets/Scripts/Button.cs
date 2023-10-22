@@ -42,7 +42,6 @@ public class Button : MonoBehaviour
     private void SetColor(Color color)
     {
         GetComponent<Renderer>().material.color = color;
-        Debug.Log("Set color of : " + name + " - " + color);
     }
     
     #endregion
