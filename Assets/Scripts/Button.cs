@@ -6,6 +6,7 @@ public class Button : MonoBehaviour
     
     public Color defaultColor;
     public Color activeColor;
+    public GameObject push;
     
     private bool m_IsActive;
 
@@ -41,7 +42,7 @@ public class Button : MonoBehaviour
 
     private void SetColor(Color color)
     {
-        GetComponent<Renderer>().material.color = color;
+        push.GetComponent<Renderer>().material.color = color;
     }
     
     #endregion
