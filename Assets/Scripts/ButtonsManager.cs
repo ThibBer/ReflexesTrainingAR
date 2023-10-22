@@ -46,12 +46,13 @@ public class ButtonsManager : MonoBehaviour
     private void GenerateButtons()
     {
         m_Buttons = new List<Button>();
+        var x = Camera.main.transform.position.x;
+        var y = Camera.main.transform.position.y;
+        
         for (var i = 0; i < NumberOfButtons; i++)
         {
-            var x = Camera.main.transform.position.x;
-            var y = Camera.main.transform.position.y;
             // TODO: change Range values (difficulty level)
-            var btn = Instantiate(button, new Vector3(Random.Range(x - 5f, x + 5f), Random.Range(x - 5f, x + 5f), 20), Quaternion.identity);
+            var btn = Instantiate(button, new Vector3(Random.Range(x - 5f, x + 5f), Random.Range(x - 5f, x + 5f), 20), button.transform.rotation);
             btn.transform.SetParent(transform, false);
             btn.IsActive = false; // Explicitly disabled first
             m_Buttons.Add(btn);
