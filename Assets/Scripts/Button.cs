@@ -18,17 +18,11 @@ public class Button : MonoBehaviour
         get => m_IsActive;
         set
         {
-            if (m_IsActive != value)
-            {
-                m_IsActive = value;
-                
-                Debug.Log("Set IsActive : " + value + " " + name);
-                
-                UpdateColor();
-            }
+            m_IsActive = value;
+            gameObject.SetActive(value);
         }
     }
-    
+
     #endregion
 
     #region Methods
@@ -41,6 +35,7 @@ public class Button : MonoBehaviour
 
     private void UpdateColor()
     {
+        // TODO: remove activeColor / defaultColor logic if not needed
         SetColor(m_IsActive ? activeColor : defaultColor);
     }
 

@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class ButtonsManager : MonoBehaviour
 {
     #region Fields
+    // TODO: Get ranges for every level later
+    private const int NumberOfButtons = 5;
+
+    // Unity property, camelCase needed
+    [SerializeField]
+    private Button button;
 
     private GestureRecognizer m_GestureRecognizer;
-    private List<Button> m_Buttons;
-    private Random m_Random;
+
+    /* 
+     * Using a List with an index over an Enumerator, will be more convenient for distance evaluation
+     * without updating the score everytime. Move to another class later if needed.
+     */
+    private IList<Button> m_Buttons;
+    private int m_CurrentIdx = 0;
 
     #endregion
 
@@ -27,24 +37,38 @@ public class ButtonsManager : MonoBehaviour
 
     private void Awake()
     {
-        m_Random = new Random();
-        
         m_GestureRecognizer = new GestureRecognizer();
         m_GestureRecognizer.StartCapturingGestures();
         m_GestureRecognizer.Tapped += OnTapped;
     }
 
+
+    private void GenerateButtons()
+    {
+        m_Buttons = new List<Button>();
+        for (var i = 0; i < NumberOfButtons; i++)
+        {
+            var x = Camera.main.transform.position.x;
+            var y = Camera.main.transform.position.y;
+            // TODO: change Range values (difficulty level)
+            var btn = Instantiate(button, new Vector3(Random.Range(x - 5f, x + 5f), Random.Range(x - 5f, x + 5f), 20), Quaternion.identity);
+            btn.transform.SetParent(transform, false);
+            btn.IsActive = false; // Explicitly disabled first
+            m_Buttons.Add(btn);
+        }
+    }
+
     private void Start()
     {
-        m_Buttons = FindObjectsOfType<Button>().ToList();
-        Debug.Log("Buttons count : " + m_Buttons.Count);
+        GenerateButtons();
+        button.IsActive = false; // Template button: disable/hide it in another way
 
-        if (m_Buttons.Count <= 1)
+        if (m_Buttons.Count < 2)
         {
             throw new Exception("Missing buttons for ButtonsManager (must have at least 2 buttons !)");
         }
 
-        m_Buttons[m_Random.Next(0, m_Buttons.Count - 1)].IsActive = true;
+        m_Buttons[m_CurrentIdx].IsActive = true;
     }
 
     private void OnDestroy()
@@ -58,9 +82,7 @@ public class ButtonsManager : MonoBehaviour
     }
 
     private void OnTapped(TappedEventArgs tappedEventArgs)
-    {
-        Debug.Log("OnTapped");
-        
+    {        
         // https://docs.unity3d.com/2018.2/Documentation/Manual/SpatialMappingCollider.html
         var gazeRay = new Ray(tappedEventArgs.headPose.position, tappedEventArgs.headPose.forward);
         var hits = Physics.RaycastAll(gazeRay, float.MaxValue);
@@ -74,25 +96,28 @@ public class ButtonsManager : MonoBehaviour
             if (button != null && button.IsActive)
             {
                 button.IsActive = false;
-                
-                var nextButton = GetNextButton(button);
-                nextButton.IsActive = true;
+                if (m_CurrentIdx < NumberOfButtons)
+                {
+                    var nextButton = GetNextButton();
+                    nextButton.IsActive = true;
+                } else {
+                    // TODO: another class handling the timer
+                    Debug.Log("Game finished");
+                }
             }
         }
     }
 
-    private Button GetNextButton(Button clickedButton)
-    {
-        var iClickedButton = m_Buttons.IndexOf(clickedButton);
-        var iRandomButton = m_Random.Next(0, m_Buttons.Count);
-
-        while (iRandomButton == iClickedButton)
-        {
-            iRandomButton = m_Random.Next(0, m_Buttons.Count - 1);
-        }
-
-        return m_Buttons[iRandomButton];
-    }
+    private Button GetNextButton() => m_Buttons[m_CurrentIdx++];
     
+    public double GetDistance()
+    {
+        var totalDist = 0.0;
+        for(var i = 1; i < m_Buttons.Count; i++)
+        {
+            totalDist += Vector3.Distance(m_Buttons[i - 1].transform.position, m_Buttons[i].transform.position);
+        }
+        return totalDist;
+    }
     #endregion
 }
