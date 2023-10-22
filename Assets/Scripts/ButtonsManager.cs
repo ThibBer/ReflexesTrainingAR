@@ -13,15 +13,15 @@ public class ButtonsManager : MonoBehaviour
     // Unity property, camelCase needed
     [SerializeField]
     private Button button;
-
     private GestureRecognizer m_GestureRecognizer;
 
-    /* 
-     * Using a List with an index over an Enumerator, will be more convenient for distance evaluation
-     * without updating the score everytime. Move to another class later if needed.
+    /*
+     * Use a collection and generate all buttons first if more convenient
      */
-    private IList<Button> m_Buttons;
-    private int m_CurrentIdx = 0;
+    private Button m_CurrentButton;
+    private int m_ButtonsLeft = NumberOfButtons;
+    // Use a get/private set property later if needed
+    private float m_TotalDistance;
 
     #endregion
 
@@ -43,33 +43,32 @@ public class ButtonsManager : MonoBehaviour
     }
 
 
-    private void GenerateButtons()
+    private void GenerateNextButton()
     {
-        m_Buttons = new List<Button>();
         var x = Camera.main.transform.position.x;
         var y = Camera.main.transform.position.y;
-        
-        for (var i = 0; i < NumberOfButtons; i++)
+        var btn = Instantiate(button, new Vector3(Random.Range(x - 5f, x + 5f), Random.Range(x - 5f, x + 5f), 20), button.transform.rotation); // TODO: define ranges
+
+        if (m_CurrentButton == null)
         {
-            // TODO: change Range values (difficulty level)
-            var btn = Instantiate(button, new Vector3(Random.Range(x - 5f, x + 5f), Random.Range(x - 5f, x + 5f), 20), button.transform.rotation);
-            btn.transform.SetParent(transform, false);
-            btn.IsActive = false; // Explicitly disabled first
-            m_Buttons.Add(btn);
+            m_CurrentButton = btn;
         }
+
+        m_TotalDistance += m_CurrentButton != null ? Vector3.Distance(m_CurrentButton.transform.position, btn.transform.position) : 0;
+        btn.IsActive = true;
+        m_CurrentButton = btn;
+        m_ButtonsLeft--;
     }
 
     private void Start()
     {
-        GenerateButtons();
+        GenerateNextButton();
         button.IsActive = false; // Template button: disable/hide it in another way
 
-        if (m_Buttons.Count < 2)
+        if (NumberOfButtons < 2)
         {
             throw new Exception("Missing buttons for ButtonsManager (must have at least 2 buttons !)");
         }
-
-        m_Buttons[m_CurrentIdx].IsActive = true;
     }
 
     private void OnDestroy()
@@ -96,29 +95,16 @@ public class ButtonsManager : MonoBehaviour
             var button = targetObject.GetComponent<Button>();
             if (button != null && button.IsActive)
             {
-                button.IsActive = false;
-                if (m_CurrentIdx < NumberOfButtons)
+                button.IsActive = false; // SetActive(false) over Destroy (see the differences in the documentation)
+                if (m_ButtonsLeft > 0)
                 {
-                    var nextButton = GetNextButton();
-                    nextButton.IsActive = true;
+                    GenerateNextButton();
                 } else {
                     // TODO: another class handling the timer
                     Debug.Log("Game finished");
                 }
             }
         }
-    }
-
-    private Button GetNextButton() => m_Buttons[m_CurrentIdx++];
-    
-    public double GetDistance()
-    {
-        var totalDist = 0.0;
-        for(var i = 1; i < m_Buttons.Count; i++)
-        {
-            totalDist += Vector3.Distance(m_Buttons[i - 1].transform.position, m_Buttons[i].transform.position);
-        }
-        return totalDist;
     }
     #endregion
 }

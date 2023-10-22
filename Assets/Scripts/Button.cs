@@ -44,6 +44,11 @@ public class Button : MonoBehaviour
     {
         push.GetComponent<Renderer>().material.color = color;
     }
-    
+
+    private void OnDestroy()
+    {
+        Debug.Log("Button destroyed");
+    }
+
     #endregion
 }
