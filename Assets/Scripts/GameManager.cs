@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     private void SetTappedText()
     {
-        tappedText.text = $"Tapped: {buttonsManager.Generated - 1}";
+        tappedText.text = $"Tapped: {buttonsManager.GeneratedNumber - 1}";
     }
 
     public void OnEnd()

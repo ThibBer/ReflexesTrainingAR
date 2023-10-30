@@ -13,8 +13,14 @@ public class ButtonsManager : MonoBehaviour
     #endregion
 
     #region Properties
-    public int Generated { get; private set; }
-    public float Distance { get; private set; }
+    /// <summary>
+    /// Number of generated buttons so far
+    /// </summary>
+    public int GeneratedNumber { get; private set; }
+    /// <summary>
+    /// Total distance between all the generated buttons
+    /// </summary>
+    public float TotalDistance { get; private set; }
     #endregion
 
     #region Methods
@@ -30,8 +36,8 @@ public class ButtonsManager : MonoBehaviour
             m_CurrentButton = btn;
         }
 
-        Generated++;
-        Distance += m_CurrentButton != null ? Vector3.Distance(m_CurrentButton.transform.position, btn.transform.position) : 0;
+        GeneratedNumber++;
+        TotalDistance += m_CurrentButton != null ? Vector3.Distance(m_CurrentButton.transform.position, btn.transform.position) : 0;
         btn.IsActive = true;
         m_CurrentButton = btn;
     }
