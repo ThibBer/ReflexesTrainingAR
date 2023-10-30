@@ -1,13 +1,15 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour
 {
-    // TODO: get from difficulty level
-    private const int Time = 60;
+    public const int Time = 15;
 
+    #region Fields
     [SerializeField]
     private Image timerFiller;
 
@@ -15,8 +17,13 @@ public class GameTimer : MonoBehaviour
     private Text timerText;
 
     private int m_TimeRemaining;
+    #endregion
 
-    // Start is called before the first frame update
+    #region Events
+    public UnityEvent onTimerEnd;
+    #endregion
+
+    #region Methods
     private void Start()
     {
         m_TimeRemaining = Time;
@@ -37,6 +44,7 @@ public class GameTimer : MonoBehaviour
 
     private void OnEnd()
     {
-        // TODO
+        onTimerEnd?.Invoke();
     }
+    #endregion
 }
