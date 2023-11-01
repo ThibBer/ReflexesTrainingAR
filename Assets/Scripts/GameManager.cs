@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
         // https://docs.unity3d.com/2018.2/Documentation/Manual/SpatialMappingCollider.html
         var gazeRay = new Ray(tappedEventArgs.headPose.position, tappedEventArgs.headPose.forward);
         var hits = Physics.RaycastAll(gazeRay, float.MaxValue);
-
         foreach (var hit in hits)
         {
             var targetObject = hit.collider.gameObject;
