@@ -15,7 +15,8 @@ public class MenuManager : MonoBehaviour
     {
         var x = Camera.main.transform.position.x;
         var y = Camera.main.transform.position.y;
-        var btn = Instantiate(startButton, new Vector3(Random.Range(x - 5f, x + 5f), Random.Range(x - 5f, x + 5f), 20), startButton.transform.rotation); // TODO: define ranges
+        var z = Camera.main.transform.position.z;
+        var btn = Instantiate(startButton, new Vector3(x, y-3, z + 100), startButton.transform.rotation);
     }
 
     // Update is called once per frame
