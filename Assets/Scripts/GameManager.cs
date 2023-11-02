@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.WSA.Input;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     private GameTimer gameTimer;
 
     private GestureRecognizer m_GestureRecognizer;
+
+    public static int score;
     #endregion
 
     #region Methods
@@ -67,7 +70,9 @@ public class GameManager : MonoBehaviour
     {
         // TODO: display the score, play again, ... (menus)
         buttonsManager.RemoveLast();
+        score = buttonsManager.GeneratedNumber;
         Debug.Log("Game finished");
+        SceneManager.LoadScene(2);
     }
     #endregion
 }
