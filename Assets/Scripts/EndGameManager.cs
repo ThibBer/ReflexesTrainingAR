@@ -21,7 +21,7 @@ public class EndGameManager : MonoBehaviour
         var x = Camera.main.transform.position.x;
         var y = Camera.main.transform.position.y;
         var z = Camera.main.transform.position.z;
-        var btn = Instantiate(restartButton, new Vector3(x, y - 3, z + 100), restartButton.transform.rotation);
+        restartButton = Instantiate(restartButton, new Vector3(x, y - 3, z + 100), restartButton.transform.rotation);
     }
 
     // Update is called once per frame
@@ -43,7 +43,11 @@ public class EndGameManager : MonoBehaviour
         var hits = Physics.RaycastAll(gazeRay, float.MaxValue);
         foreach (var hit in hits)
         {
-            SceneManager.LoadScene(1);
+            var targetObject = hit.collider.gameObject;
+            if (GameObject.ReferenceEquals(restartButton, targetObject))
+            {
+                SceneManager.LoadScene(1);
+            }
         }
     }
     #endregion

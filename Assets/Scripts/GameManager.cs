@@ -68,10 +68,8 @@ public class GameManager : MonoBehaviour
 
     public void OnEnd()
     {
-        // TODO: display the score, play again, ... (menus)
         buttonsManager.RemoveLast();
         score = buttonsManager.GeneratedNumber;
-        Debug.Log("Game finished");
         SceneManager.LoadScene(2);
     }
     #endregion

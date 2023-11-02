@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
         var x = Camera.main.transform.position.x;
         var y = Camera.main.transform.position.y;
         var z = Camera.main.transform.position.z;
-        var btn = Instantiate(startButton, new Vector3(x, y-3, z + 100), startButton.transform.rotation);
+        startButton = Instantiate(startButton, new Vector3(x, y-3, z + 100), startButton.transform.rotation);
     }
 
     // Update is called once per frame
@@ -39,7 +39,12 @@ public class MenuManager : MonoBehaviour
         var hits = Physics.RaycastAll(gazeRay, float.MaxValue);
         foreach (var hit in hits)
         {
-            SceneManager.LoadScene(1);
+            var targetObject = hit.collider.gameObject;
+            if (GameObject.ReferenceEquals(startButton, targetObject))
+            {
+                SceneManager.LoadScene(1);
+            }
+                
         }
     }
     #endregion
