@@ -486,6 +486,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _score: {fileID: 1464699840}
+  restartButton: {fileID: 6580298388850587376, guid: 17cd10f879aaad545ab8d99232d27c53,
+    type: 3}
 --- !u!4 &1623362798
 Transform:
   m_ObjectHideFlags: 0
