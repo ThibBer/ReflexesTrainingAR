@@ -13,8 +13,7 @@ public class MenuManager : BaseGesture
     // Start is called before the first frame update
     private void Start()
     {
-        Vector3 pos = Camera.main.transform.position;
-        startButton = Instantiate(startButton, new Vector3(pos.x, pos.y-3, pos.z + 100), startButton.transform.rotation);
+        
     }
 
     public override void handleHit(RaycastHit hit)

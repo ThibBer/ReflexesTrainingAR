@@ -17,8 +17,7 @@ public class EndGameManager : BaseGesture
     private void Start()
     {
         score.text = score.text + GameManager.Score;
-        Vector3 pos = Camera.main.transform.position;
-        restartButton = Instantiate(restartButton, new Vector3(pos.x, pos.y - 3, pos.z + 100), restartButton.transform.rotation);
+       
     }
 
     public override void handleHit(RaycastHit hit)
