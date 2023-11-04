@@ -6,7 +6,7 @@ public class EndGameManager : BaseGesture
 {
     #region Fields
     [SerializeField]
-    private Text _score;
+    private Text score;
 
     [SerializeField]
     private GameObject restartButton;
@@ -14,9 +14,9 @@ public class EndGameManager : BaseGesture
 
     #region Methods
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        _score.text = _score.text + GameManager.score.ToString();
+        score.text = score.text + GameManager.Score;
         Vector3 pos = Camera.main.transform.position;
         restartButton = Instantiate(restartButton, new Vector3(pos.x, pos.y - 3, pos.z + 100), restartButton.transform.rotation);
     }

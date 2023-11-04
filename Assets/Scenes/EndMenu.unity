@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808d3c43814c9ab4b80b68c0519546a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _score: {fileID: 1464699840}
+  score: {fileID: 1464699840}
   restartButton: {fileID: 6580298388850587376, guid: 17cd10f879aaad545ab8d99232d27c53,
     type: 3}
 --- !u!4 &1623362798

@@ -14,7 +14,7 @@ public class GameManager : BaseGesture
     [SerializeField]
     private GameTimer gameTimer;
 
-    public static int score;
+    public static int Score { get; private set; }
     #endregion
 
     #region Methods
@@ -39,7 +39,7 @@ public class GameManager : BaseGesture
     public void OnEnd()
     {
         buttonsManager.RemoveLast();
-        score = buttonsManager.GeneratedNumber;
+        Score = buttonsManager.GeneratedNumber;
         SceneManager.LoadScene(2);
     }
     #endregion
