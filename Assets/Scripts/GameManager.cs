@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
 
 public class GameManager : BaseGesture
 {
@@ -40,7 +39,8 @@ public class GameManager : BaseGesture
     public void OnEnd()
     {
         buttonsManager.RemoveLast();
-        Score = (int) Math.Round(buttonsManager.Tapped * buttonsManager.TotalDistance / GameTimer.Time);
+        Debug.Log($"nbre de buttons appuyés: {buttonsManager.Tapped}, distance: {buttonsManager.TotalDistance}");
+        Score = Mathf.RoundToInt(buttonsManager.Tapped * buttonsManager.TotalDistance / GameTimer.Time);
         SceneManager.LoadScene(2);
     }
     #endregion
