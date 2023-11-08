@@ -10,13 +10,18 @@ public class ButtonsManager : MonoBehaviour
     [SerializeField]
     private Button button;
     private Button m_CurrentButton;
+    /// <summary>
+    /// Number of generated buttons so far
+    /// </summary>
+    private int m_GeneratedNumber;
     #endregion
 
     #region Properties
     /// <summary>
-    /// Number of generated buttons so far
+    /// Number of tapped buttons
     /// </summary>
-    public int GeneratedNumber { get; private set; }
+    public int Tapped { get => m_GeneratedNumber - 1; private set; }
+
     /// <summary>
     /// Total distance between all the generated buttons
     /// </summary>
@@ -36,7 +41,7 @@ public class ButtonsManager : MonoBehaviour
             m_CurrentButton = btn;
         }
 
-        GeneratedNumber++;
+        m_GeneratedNumber++;
         TotalDistance += m_CurrentButton != null ? Vector3.Distance(m_CurrentButton.transform.position, btn.transform.position) : 0;
         btn.IsActive = true;
         m_CurrentButton = btn;

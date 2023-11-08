@@ -39,7 +39,7 @@ public class GameManager : BaseGesture
     public void OnEnd()
     {
         buttonsManager.RemoveLast();
-        Score = buttonsManager.GeneratedNumber;
+        Score = buttonsManager.Tapped * buttonsManager.TotalDistance / GameTimer.Time;
         SceneManager.LoadScene(2);
     }
     #endregion
