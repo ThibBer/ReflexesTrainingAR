@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : BaseGesture
 {
@@ -13,6 +14,9 @@ public class GameManager : BaseGesture
 
     [SerializeField]
     private GameTimer gameTimer;
+
+    [SerializeField]
+    private HighScoreManager highScoreManager;
 
     public static int Score { get; private set; }
     #endregion
@@ -39,8 +43,8 @@ public class GameManager : BaseGesture
     public void OnEnd()
     {
         buttonsManager.RemoveLast();
-        Debug.Log($"nbre de buttons appuyés: {buttonsManager.Tapped}, distance: {buttonsManager.TotalDistance}");
         Score = Mathf.RoundToInt(buttonsManager.Tapped * buttonsManager.TotalDistance / ConfigurationDatabase.Instance.GameTimeSeconds);
+        highScoreManager.AddScore(new HighScore(Score, DateTime.Now));
         SceneManager.LoadScene(2);
     }
     #endregion
