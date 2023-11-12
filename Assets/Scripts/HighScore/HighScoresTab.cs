@@ -13,7 +13,6 @@ public class HighScoresTab : MonoBehaviour
     void Start()
     {
         var highScores = highScoreManager.HighScores;
-        Debug.Log($"High scores are {highScores}");
         var entries = transform.Find("Entries");
         var template = entries.Find("EntryTemplate");
         template.gameObject.SetActive(false);

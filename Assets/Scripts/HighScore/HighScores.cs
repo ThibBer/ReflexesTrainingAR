@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
+using System.Text;
 
 [Serializable]
 public class HighScores
@@ -47,15 +48,5 @@ public class HighScores
             .ThenBy(hs => hs.GetScoreDate())
             .Take(MaxHighScores)
             .ToList();
-    }
-
-    public override string ToString()
-    {
-        var str = "";
-        foreach(var hs in m_HighScores)
-        {
-            str += $"Score: {hs.GetScore()} - Date: {hs.GetScoreDate()}\n";
-        }
-        return str;
     }
 }
