@@ -34,7 +34,11 @@ public class ButtonsManager : MonoBehaviour
     {
         var x = Camera.main.transform.position.x;
         var y = Camera.main.transform.position.y;
-        var btn = Instantiate(button, new Vector3(Random.Range(x - 5f, x + 5f), Random.Range(x - 5f, x + 5f), 20), button.transform.rotation); // TODO: define ranges
+
+        var buttonPos = new Vector3(Random.Range(x - 5f, x + 5f), Random.Range(x - 5f, x + 5f), 20);
+        var buttonRotation = Quaternion.FromToRotation(Camera.main.transform.position, buttonPos);
+
+        var btn = Instantiate(button, buttonPos, buttonRotation); // TODO: define ranges
 
         if (m_CurrentButton == null)
         {
