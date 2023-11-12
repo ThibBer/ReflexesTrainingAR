@@ -14,7 +14,8 @@ public struct HighScore
     {
         this.score = score;
         // JsonUtility can't serialize DateTime
-        this.scoreDate = scoreDate.ToString();
+        // Format exemple: November 12 2023 - 16:50:30
+        this.scoreDate = scoreDate.ToString("MMMM dd yyyy - H:mm:ss");
     }
 
     public int GetScore() => score;

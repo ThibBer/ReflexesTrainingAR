@@ -1,45 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Windows;
+﻿using UnityEngine;
 
 public class HighScoreManager : MonoBehaviour
 {
     [SerializeField]
-    private HighScoreTab m_HighScoresTab;
-    private IFileHandlerStrategy<HighScoreTab> m_ScoreSaver;
+    private HighScores m_HighScores;
+
+    public HighScores HighScores
+    {
+        get => m_HighScores.GetCopy();
+    }
+
+    private IFileHandlerStrategy<HighScores> m_ScoreSaver;
 
     private void Start()
     {
         // Cannot be a static readonly member
         var hsFilePath = $@"{Application.persistentDataPath}/high_scores.json";
         Debug.Log($"Persistent data path file: {hsFilePath}");
-        m_HighScoresTab = new HighScoreTab();
-        m_ScoreSaver = new JsonFileHandler<HighScoreTab>(hsFilePath);
+        m_HighScores = new HighScores();
+        m_ScoreSaver = new JsonFileHandler<HighScores>(hsFilePath);
         LoadHighScores();
     }
 
     private void LoadHighScores()
     {
-        m_HighScoresTab = m_ScoreSaver.ReadData() ?? new HighScoreTab();
-        m_HighScoresTab.OrderScores();
-        Debug.Log($"High scores loaded: {m_HighScoresTab}");
+        m_HighScores = m_ScoreSaver.ReadData() ?? new HighScores();
+        m_HighScores.OrderScores();
+        Debug.Log($"High scores loaded: {m_HighScores}");
     }
 
     private void SaveHighScores()
     {
-        m_HighScoresTab.OrderScores();
-        m_ScoreSaver.SaveData(m_HighScoresTab);
+        m_HighScores.OrderScores();
+        m_ScoreSaver.SaveData(m_HighScores);
     }
 
-    private void ResetHighScores()
+    public void ResetHighScores()
     {
-        m_ScoreSaver.SaveData(new HighScoreTab());
+        m_ScoreSaver.SaveData(new HighScores());
     }
 
     public void AddScore(HighScore score)
     {
-        m_HighScoresTab.Add(score);
+        m_HighScores.Add(score);
         SaveHighScores();
     }
 }

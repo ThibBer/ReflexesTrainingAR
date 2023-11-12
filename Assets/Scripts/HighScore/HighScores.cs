@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class HighScoreTab
+public class HighScores
 {
     /// <summary>
     /// The max amount of high scores to save and load
@@ -20,7 +20,7 @@ public class HighScoreTab
         get { return m_HighScores[i]; }
     }
 
-    public HighScoreTab()
+    public HighScores()
     {
         m_HighScores = new List<HighScore>();
     }
@@ -31,6 +31,15 @@ public class HighScoreTab
         OrderScores();
     }
 
+    public HighScores GetCopy()
+    {
+        var newHighScores = new HighScores();
+        m_HighScores.ForEach(s => newHighScores.Add(s));
+        return newHighScores;
+    }
+
+    public int Count() => m_HighScores.Count();
+
     public void OrderScores()
     {
         Debug.Log($"Ordering: {m_HighScores}");
@@ -38,5 +47,15 @@ public class HighScoreTab
             .ThenBy(hs => hs.GetScoreDate())
             .Take(MaxHighScores)
             .ToList();
+    }
+
+    public override string ToString()
+    {
+        var str = "";
+        foreach(var hs in m_HighScores)
+        {
+            str += $"Score: {hs.GetScore()} - Date: {hs.GetScoreDate()}\n";
+        }
+        return str;
     }
 }

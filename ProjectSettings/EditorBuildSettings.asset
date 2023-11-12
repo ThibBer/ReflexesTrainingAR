@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/EndMenu.unity
     guid: 6f272d9a226d79c44af5a490db0b9014
   - enabled: 1
-    path: Assets/Scenes/ConfigMenu.unity
-    guid: 57d943cbde39f674b9eea09078552269
+    path: Assets/Scenes/ScoresMenu.unity
+    guid: 152344cc22af7f848b0ff728cc8c56af
   m_configObjects: {}
