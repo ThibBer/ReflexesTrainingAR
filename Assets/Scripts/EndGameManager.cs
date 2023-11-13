@@ -17,7 +17,6 @@ public class EndGameManager : BaseGesture
     private void Start()
     {
         score.text = score.text + GameManager.Score;
-       
     }
 
     public override void handleHit(RaycastHit hit)

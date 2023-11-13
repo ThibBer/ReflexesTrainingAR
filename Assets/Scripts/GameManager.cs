@@ -33,13 +33,14 @@ public class GameManager : BaseGesture
 
     private void SetTappedText()
     {
-        tappedText.text = $"Tapped: {buttonsManager.GeneratedNumber - 1}";
+        tappedText.text = $"Tapped: {buttonsManager.Tapped}";
     }
 
     public void OnEnd()
     {
         buttonsManager.RemoveLast();
-        Score = buttonsManager.GeneratedNumber;
+        Debug.Log($"nbre de buttons appuyés: {buttonsManager.Tapped}, distance: {buttonsManager.TotalDistance}");
+        Score = Mathf.RoundToInt(buttonsManager.Tapped * buttonsManager.TotalDistance / GameTimer.Time);
         SceneManager.LoadScene(2);
     }
     #endregion
