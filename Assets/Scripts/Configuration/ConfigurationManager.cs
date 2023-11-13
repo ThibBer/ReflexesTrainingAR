@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ConfigurationManager : MonoBehaviour
 {
@@ -30,6 +31,13 @@ public class ConfigurationManager : MonoBehaviour
 
     public void setGameTime_seconds(int seconds)
     {
+        Debug.Log("Hello: " + this.gameTime_seconds);
         this.gameTime_seconds = seconds;
+        Debug.Log("Bye: " + this.gameTime_seconds);
+    }
+
+    public void goBackToMainMenuScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }

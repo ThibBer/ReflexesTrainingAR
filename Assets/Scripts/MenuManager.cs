@@ -6,6 +6,8 @@ public class MenuManager : BaseGesture
     #region Fields
     [SerializeField]
     private GameObject startButton;
+    [SerializeField]
+    private GameObject configButton;
 
     #endregion
 
@@ -23,6 +25,21 @@ public class MenuManager : BaseGesture
         {
             SceneManager.LoadScene(1);
         }
+        else if (ReferenceEquals(configButton, targetObject))
+        {
+            SceneManager.LoadScene(3);
+        }
     }
+
+    // Maybe to remove
+    public void startGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void configGame()
+    {
+        SceneManager.LoadScene(3);
+    }
+
     #endregion
 }
