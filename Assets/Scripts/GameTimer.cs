@@ -24,7 +24,7 @@ public class GameTimer : MonoBehaviour
     #region Methods
     private void Start()
     {
-        m_TimeRemaining = ConfigurationManager.getInstance().getGameTime_seconds();
+        m_TimeRemaining = ConfigurationDatabase.getInstance().gameTime_seconds;
         StartCoroutine(UpdateGameTimer());
     }
 
@@ -32,7 +32,7 @@ public class GameTimer : MonoBehaviour
     {
         while(m_TimeRemaining >= 0)
         {
-            timerFiller.fillAmount = Mathf.InverseLerp(0, ConfigurationManager.getInstance().getGameTime_seconds(), m_TimeRemaining);
+            timerFiller.fillAmount = Mathf.InverseLerp(0, ConfigurationDatabase.getInstance().gameTime_seconds, m_TimeRemaining);
             timerText.text = $"{m_TimeRemaining / 60:00}:{m_TimeRemaining % 60:00}";
             m_TimeRemaining--;
             yield return new WaitForSeconds(1.0f);

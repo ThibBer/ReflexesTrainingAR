@@ -10,14 +10,15 @@ public class ButtonSelected : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GameObject.Find("ConfigurationManager").GetComponent<ConfigurationManager>().getGameTime_seconds());
-        if (GameObject.Find("ConfigurationManager").GetComponent<ConfigurationManager>().getGameTime_seconds() == gameTime_seconds)
+        if (ConfigurationDatabase.getInstance().gameTime_seconds == gameTime_seconds)
         {
             GetComponent<Image>().color = Color.blue;
+            GetComponentInChildren<Text>().color = Color.white;
         }
         else
         {
             GetComponent<Image>().color = Color.white;
+            GetComponentInChildren<Text>().color = Color.black;
         }
     }
 }
