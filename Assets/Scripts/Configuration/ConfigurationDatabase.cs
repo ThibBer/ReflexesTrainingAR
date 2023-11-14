@@ -5,7 +5,7 @@ using UnityEngine;
 public class ConfigurationDatabase : MonoBehaviour
 {
     private static ConfigurationDatabase Instance;
-    public int gameTime_seconds = 15;
+    public int GameTimeSeconds { get; set; } = 15;
 
     public static ConfigurationDatabase getInstance()
     {
