@@ -10,7 +10,7 @@ public class ButtonSelected : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ConfigurationDatabase.getInstance().gameTime_seconds == gameTime_seconds)
+        if (ConfigurationDatabase.Instance.GameTimeSeconds == gameTime_seconds)
         {
             GetComponent<Image>().color = Color.blue;
             GetComponentInChildren<Text>().color = Color.white;

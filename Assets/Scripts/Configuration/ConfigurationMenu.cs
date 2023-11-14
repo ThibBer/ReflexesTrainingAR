@@ -7,6 +7,6 @@ public class ConfigurationMenu : MonoBehaviour
 {
     public void setGameTime_seconds(int seconds)
     {
-        ConfigurationDatabase.getInstance().gameTime_seconds = seconds;
+        ConfigurationDatabase.Instance.GameTimeSeconds = seconds;
     }
 }

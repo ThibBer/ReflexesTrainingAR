@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class ConfigurationDatabase : MonoBehaviour
 {
-    private static ConfigurationDatabase Instance;
+    public static ConfigurationDatabase Instance { get; private set; }
     public int GameTimeSeconds { get; set; } = 15;
-
-    public static ConfigurationDatabase getInstance()
-    {
-        return Instance;
-    }
 
     private void Awake()
     {
