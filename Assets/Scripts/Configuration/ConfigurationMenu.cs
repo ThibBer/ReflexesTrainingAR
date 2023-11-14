@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class ConfigurationMenu : MonoBehaviour
 {
+    private ConfigurationDatabase m_ConfigDB;
+
+    public void Start()
+    {
+        m_ConfigDB = ConfigurationDatabase.Instance;
+    }
+
     public void SetGameTime_seconds(int seconds)
     {
-        ConfigurationDatabase.Instance.GameTimeSeconds = seconds;
+        m_ConfigDB.GameTimeSeconds = seconds;
     }
 }
