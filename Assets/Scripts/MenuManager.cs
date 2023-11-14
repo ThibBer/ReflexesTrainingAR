@@ -4,25 +4,20 @@ using UnityEngine.SceneManagement;
 public class MenuManager : BaseGesture
 {
     #region Fields
-    [SerializeField]
-    private GameObject startButton;
-
     #endregion
 
     #region Methods
-    // Start is called before the first frame update
-    private void Start()
+    public void startGame()
     {
-        
+        SceneManager.LoadScene(1);
     }
-
-    public override void handleHit(RaycastHit hit)
+    public void configGame()
     {
-        GameObject targetObject = hit.collider.gameObject;
-        if (ReferenceEquals(startButton, targetObject))
-        {
-            SceneManager.LoadScene(1);
-        }
+        SceneManager.LoadScene(3);
+    }
+    public void mainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
     #endregion
 }
