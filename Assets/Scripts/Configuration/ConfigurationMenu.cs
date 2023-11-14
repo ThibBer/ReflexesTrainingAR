@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ConfigurationMenu : MonoBehaviour
 {
-    public void setGameTime_seconds(int seconds)
+    public void SetGameTime_seconds(int seconds)
     {
         ConfigurationDatabase.Instance.GameTimeSeconds = seconds;
     }
