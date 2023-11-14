@@ -40,7 +40,7 @@ public class GameManager : BaseGesture
     {
         buttonsManager.RemoveLast();
         Debug.Log($"nbre de buttons appuyés: {buttonsManager.Tapped}, distance: {buttonsManager.TotalDistance}");
-        Score = Mathf.RoundToInt(buttonsManager.Tapped * buttonsManager.TotalDistance / GameTimer.Time);
+        Score = Mathf.RoundToInt(buttonsManager.Tapped * buttonsManager.TotalDistance / ConfigurationDatabase.Instance.GameTimeSeconds);
         SceneManager.LoadScene(2);
     }
     #endregion
