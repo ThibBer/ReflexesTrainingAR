@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class HighScoresTab : MonoBehaviour
 {
     private const float EntryHeight = 35f;
+    /// <summary>
+    /// The max amount of high scores to save and load
+    /// </summary>
+    public const int MaxHighScores = 10;
 
     [SerializeField]
     private HighScoreManager highScoreManager;
@@ -20,20 +25,26 @@ public class HighScoresTab : MonoBehaviour
         FillTheTable(highScores, entries, template);
     }
 
-    private void FillTheTable(HighScores highScores, Transform entries, Transform template)
+    private void FillTheTable(Scores highScores, Transform entries, Transform template)
     {
-        for (var i = 0; i < highScores.Count(); i++)
-        {
-            var rank = i + 1;
-            var entryTransform = Instantiate(template, entries);
-            var entryRectTransform = entryTransform.GetComponent<RectTransform>();
+        var rank = 0;
+        highScores
+            .OrderByDescending(hs => hs.GetScore())
+            .ThenByDescending(hs => hs.GetScoreDate())
+            .Take(MaxHighScores)
+            .ToList()
+            .ForEach(score => 
+            {
+                rank += 1;
+                var entryTransform = Instantiate(template, entries);
+                var entryRectTransform = entryTransform.GetComponent<RectTransform>();
 
-            entryRectTransform.anchoredPosition = new Vector2(0, -EntryHeight * i);
-            entryTransform.gameObject.SetActive(true);
+                entryRectTransform.anchoredPosition = new Vector2(0, -EntryHeight * rank);
+                entryTransform.gameObject.SetActive(true);
 
-            entryTransform.Find("PosEntry").GetComponent<Text>().text = rank.ToString();
-            entryTransform.Find("ScoreEntry").GetComponent<Text>().text = highScores[i].GetScore().ToString();
-            entryTransform.Find("DateEntry").GetComponent<Text>().text = highScores[i].GetScoreDate();
-        }
+                entryTransform.Find("PosEntry").GetComponent<Text>().text = rank.ToString();
+                entryTransform.Find("ScoreEntry").GetComponent<Text>().text = score.GetScore().ToString();
+                entryTransform.Find("DateEntry").GetComponent<Text>().text = score.GetScoreDate();
+            });
     }
 }

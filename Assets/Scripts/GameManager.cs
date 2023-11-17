@@ -44,7 +44,7 @@ public class GameManager : BaseGesture
     {
         buttonsManager.RemoveLast();
         Score = Mathf.RoundToInt(buttonsManager.Tapped * buttonsManager.TotalDistance / ConfigurationDatabase.Instance.GameTimeSeconds);
-        highScoreManager.AddScore(new HighScore(Score, DateTime.Now));
+        highScoreManager.AddScore(new Score(Score, DateTime.Now));
         SceneManager.LoadScene(2);
     }
     #endregion
