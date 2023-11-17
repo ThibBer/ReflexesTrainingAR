@@ -7,15 +7,17 @@ public class MenuManager : BaseGesture
     #endregion
 
     #region Methods
-    public void startGame()
+    public void StartGame()
     {
         SceneManager.LoadScene(1);
     }
-    public void configGame()
+
+    public void ConfigGame()
     {
         SceneManager.LoadScene(3);
     }
-    public void mainMenu()
+
+    public void MainMenu()
     {
         SceneManager.LoadScene(0);
     }
