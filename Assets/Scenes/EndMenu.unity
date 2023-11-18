@@ -998,7 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808d3c43814c9ab4b80b68c0519546a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 0}
+  score: {fileID: 1257274125}
   restartButton: {fileID: 0}
 --- !u!4 &1623362798
 Transform:
