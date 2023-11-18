@@ -38,7 +38,7 @@ public class ButtonsManager : MonoBehaviour
         var buttonPos = GetRandomSphericalButtonPosition(cameraPosition);
         var buttonRotation = GetRotationToLookAtTarget(buttonPos, cameraPosition);
 
-        var btn = Instantiate(button, buttonPos, buttonRotation); // TODO: define ranges
+        var btn = Instantiate(button, buttonPos, buttonRotation);
 
         if (m_CurrentButton == null)
         {
