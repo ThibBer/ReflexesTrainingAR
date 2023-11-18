@@ -37,7 +37,7 @@ public class ButtonsManager : MonoBehaviour
     {
         var cameraPosition = Camera.main.transform.position;
         var buttonPos = GetRandomSphericalButtonPosition(cameraPosition);
-        var buttonRotation = GetRotationToLookAtTarget(buttonPos, cameraPosition);
+        var buttonRotation = GetRotationToLookAtTarget(buttonPos, cameraPosition, -90);
 
         var btn = Instantiate(prefabButton, buttonPos, buttonRotation);
         btn.transform.localScale = m_DefaultButtonScale;
@@ -66,7 +66,7 @@ public class ButtonsManager : MonoBehaviour
         return startPosition + position * SPAWN_DISTANCE_FROM_PLAYER;
     }
 
-    private Quaternion GetRotationToLookAtTarget(Vector3 origin, Vector3 target, float xOffset = -90)
+    private Quaternion GetRotationToLookAtTarget(Vector3 origin, Vector3 target, float xOffset = 0)
     {
         var direction = target - origin;
         
