@@ -8,14 +8,15 @@ public class ButtonsManager : MonoBehaviour
     private const float SPAWN_DISTANCE_FROM_PLAYER = 20;
     private readonly Quaternion m_MinSpawnAngles = Quaternion.Euler(-50, -50, 0);
     private readonly Quaternion m_MaxSpawnAngles = Quaternion.Euler(50, 50, 0);
+    private readonly Vector3 m_DefaultButtonScale = new Vector3(0.02f, 0.02f, 0.02f);
     
-    [SerializeField]
-    private Button button;
+    [SerializeField] private Button prefabButton;
     private Button m_CurrentButton;
     /// <summary>
     /// Number of generated buttons so far
     /// </summary>
     private int m_GeneratedNumber;
+    
     #endregion
 
     #region Properties
@@ -38,7 +39,8 @@ public class ButtonsManager : MonoBehaviour
         var buttonPos = GetRandomSphericalButtonPosition(cameraPosition);
         var buttonRotation = GetRotationToLookAtTarget(buttonPos, cameraPosition);
 
-        var btn = Instantiate(button, buttonPos, buttonRotation);
+        var btn = Instantiate(prefabButton, buttonPos, buttonRotation);
+        btn.transform.localScale = m_DefaultButtonScale;
 
         if (m_CurrentButton == null)
         {
@@ -82,7 +84,6 @@ public class ButtonsManager : MonoBehaviour
     private void Start()
     {
         GenerateNextButton();
-        button.IsActive = false; // Template button: disable/hide it in another way
     }
     #endregion
 }
