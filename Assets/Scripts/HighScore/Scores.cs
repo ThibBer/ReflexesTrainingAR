@@ -41,23 +41,6 @@ public class Scores : IEnumerable<Score>
         return newHighScores;
     }
 
-    /*public void OrderByDate()
-    {
-        Debug.Log($"Ordering: {m_HighScores}");
-        m_HighScores = m_HighScores
-            .OrderByDescending(hs => hs.GetScore())
-            .ThenBy(hs => hs.ScoreDateTime)
-            .ToList();
-    }
-
-    public void OrderByScore()
-    {
-        m_HighScores = m_HighScores
-            .OrderByDescending(hs => hs.GetScore())
-            .ThenBy(hs => hs.ScoreDateTime)
-            .ToList();
-    }*/
-
     public IEnumerator<Score> GetEnumerator()
     {
         return m_HighScores.GetEnumerator();

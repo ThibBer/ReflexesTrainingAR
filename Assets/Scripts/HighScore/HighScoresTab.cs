@@ -6,7 +6,7 @@ using System.Linq;
 
 public class HighScoresTab : MonoBehaviour
 {
-    private const float EntryHeight = 35f;
+    private const float EntryHeight = 25f;
     /// <summary>
     /// The max amount of high scores to save and load
     /// </summary>
@@ -39,7 +39,7 @@ public class HighScoresTab : MonoBehaviour
                 var entryTransform = Instantiate(template, entries);
                 var entryRectTransform = entryTransform.GetComponent<RectTransform>();
 
-                entryRectTransform.anchoredPosition = new Vector2(0, -EntryHeight * rank);
+                entryRectTransform.anchoredPosition = new Vector2(0, -EntryHeight * (rank-1));
                 entryTransform.gameObject.SetActive(true);
 
                 entryTransform.Find("PosEntry").GetComponent<Text>().text = rank.ToString();
