@@ -14,12 +14,17 @@ public class MenuManager : BaseGesture
 
     public void ConfigGame()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void ScoresMenu()
+    {
+        SceneManager.LoadScene(3);
     }
     #endregion
 }
