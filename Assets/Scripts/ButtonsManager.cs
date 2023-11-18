@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ButtonsManager : MonoBehaviour
 {
     #region Fields
+
+    private const float SPAWN_DISTANCE_FROM_PLAYER = 20;
+    private readonly Quaternion m_MinSpawnAngles = Quaternion.Euler(-50, -50, 0);
+    private readonly Quaternion m_MaxSpawnAngles = Quaternion.Euler(50, 50, 0);
+    
     [SerializeField]
     private Button button;
     private Button m_CurrentButton;
@@ -49,6 +51,29 @@ public class ButtonsManager : MonoBehaviour
         TotalDistance += m_CurrentButton != null ? Vector3.Distance(m_CurrentButton.transform.position, btn.transform.position) : 0;
         btn.IsActive = true;
         m_CurrentButton = btn;
+    }
+
+    private Vector3 GetRandomSphericalButtonPosition(Vector3 startPosition)
+    {
+        var xAngle = Random.Range(m_MinSpawnAngles.x, m_MaxSpawnAngles.x);
+        var yAngle = Random.Range(m_MinSpawnAngles.y, m_MaxSpawnAngles.y);
+        
+        // Debug.Log("X degree angle : " + xAngle * 180 / Mathf.PI);
+        // Debug.Log("Y degree angle : " + yAngle * 180 / Mathf.PI);
+
+        var position = new Vector3(Mathf.Sin(yAngle), Mathf.Sin(xAngle), Mathf.Cos(yAngle));
+
+        return startPosition + position * SPAWN_DISTANCE_FROM_PLAYER;
+    }
+
+    private Quaternion GetRotationToLookAtTarget(Vector3 origin, Vector3 target, float xOffset = -90)
+    {
+        var direction = target - origin;
+        
+        var xRotation = Mathf.Atan2(direction.z, direction.y) * 180f / Mathf.PI;
+        var yRotation = xOffset - Mathf.Atan2(direction.z, direction.x) * 180f / Mathf.PI;
+        
+        return Quaternion.Euler(xRotation, yRotation, 0);
     }
 
     public void RemoveLast()
