@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ConfigurationMenu : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class ConfigurationMenu : MonoBehaviour
         m_ConfigDB = ConfigurationDatabase.Instance;
     }
 
-    public void SetGameTime_seconds(int seconds)
+    public void SetGameTimeSeconds(int seconds)
     {
         m_ConfigDB.GameTimeSeconds = seconds;
     }

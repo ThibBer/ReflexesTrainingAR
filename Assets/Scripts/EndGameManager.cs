@@ -8,8 +8,6 @@ public class EndGameManager : BaseGesture
     [SerializeField]
     private Text score;
 
-    [SerializeField]
-    private GameObject restartButton;
     #endregion
 
     #region Methods
@@ -18,15 +16,5 @@ public class EndGameManager : BaseGesture
     {
         score.text = score.text + GameManager.Score;
     }
-
-    public override void handleHit(RaycastHit hit)
-    {
-        var targetObject = hit.collider.gameObject;
-        if (GameObject.ReferenceEquals(restartButton, targetObject))
-        {
-            SceneManager.LoadScene(1);
-        }
-    }
-
     #endregion
 }
