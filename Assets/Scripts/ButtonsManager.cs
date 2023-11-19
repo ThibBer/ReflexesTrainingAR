@@ -23,7 +23,7 @@ public class ButtonsManager : MonoBehaviour
     /// <summary>
     /// Number of tapped buttons
     /// </summary>
-    public int Tapped { get => m_GeneratedNumber - 1; }
+    public int Tapped => m_GeneratedNumber - 1;
 
     /// <summary>
     /// Total distance between all the generated buttons
