@@ -5,7 +5,7 @@ public class ButtonsManager : MonoBehaviour
 {
     #region Fields
 
-    private const float SPAWN_DISTANCE_FROM_PLAYER = 20;
+    private const float SpawnDistanceFromPlayer = 20;
     private readonly Quaternion m_MinSpawnAngles = Quaternion.Euler(-50, -50, 0);
     private readonly Quaternion m_MaxSpawnAngles = Quaternion.Euler(50, 50, 0);
     private readonly Vector3 m_DefaultButtonScale = new Vector3(0.02f, 0.02f, 0.02f);
@@ -63,7 +63,7 @@ public class ButtonsManager : MonoBehaviour
 
         var position = new Vector3(Mathf.Sin(yAngle), Mathf.Sin(xAngle), Mathf.Cos(yAngle));
 
-        return startPosition + position * SPAWN_DISTANCE_FROM_PLAYER;
+        return startPosition + position * SpawnDistanceFromPlayer;
     }
 
     private Quaternion GetRotationToLookAtTarget(Vector3 origin, Vector3 target, float xOffset = 0)
