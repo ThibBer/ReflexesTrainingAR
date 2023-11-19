@@ -14,8 +14,6 @@ public class EndGameManager : BaseGesture
     // Start is called before the first frame update
     private void Start()
     {
-        Debug.Log($"Score: {GameManager.Score}");
-        Debug.Log($"Score text: {score.text}");
         score.text = score.text + GameManager.Score;
     }
     #endregion

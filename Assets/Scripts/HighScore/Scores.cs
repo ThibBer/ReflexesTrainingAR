@@ -14,10 +14,7 @@ public class Scores : IEnumerable<Score>
 
     public int Count => m_HighScores.Count;
 
-    public Score this[int i]
-    {
-        get { return m_HighScores[i]; }
-    }
+    public Score this[int i] => m_HighScores[i];
 
     public Scores()
     {
@@ -31,6 +28,11 @@ public class Scores : IEnumerable<Score>
 
     public void Add(Score score)
     {
+        // So we avoid sorting/replacing the list if < MaxSize
+        if (m_HighScores.Count >= MaxSize)
+        {
+            KeepLastScores();
+        }
         m_HighScores.Add(score);
     }
 
@@ -41,13 +43,16 @@ public class Scores : IEnumerable<Score>
         return newHighScores;
     }
 
-    public IEnumerator<Score> GetEnumerator()
-    {
-        return m_HighScores.GetEnumerator();
-    }
+    public IEnumerator<Score> GetEnumerator() => m_HighScores.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    private void KeepLastScores()
     {
-        return GetEnumerator();
+        // Can't save the best scores only (for the future chart displaying the score over time)
+        m_HighScores = m_HighScores
+            .OrderByDescending(s => s.ScoreDateTime)
+            .Take(MaxSize-1) // n-1 last scores
+            .ToList();
     }
 }
