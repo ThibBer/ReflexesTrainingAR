@@ -57,9 +57,6 @@ public class ButtonsManager : MonoBehaviour
     {
         var xAngle = Random.Range(m_MinSpawnAngles.x, m_MaxSpawnAngles.x);
         var yAngle = Random.Range(m_MinSpawnAngles.y, m_MaxSpawnAngles.y);
-        
-        // Debug.Log("X degree angle : " + xAngle * 180 / Mathf.PI);
-        // Debug.Log("Y degree angle : " + yAngle * 180 / Mathf.PI);
 
         var position = new Vector3(Mathf.Sin(yAngle), Mathf.Sin(xAngle), Mathf.Cos(yAngle));
 
