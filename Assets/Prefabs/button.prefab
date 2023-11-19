@@ -186,6 +186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c77c1080ef5b841a4615d93b20a8f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 0, b: 0, a: 0}
-  activeColor: {r: 0, g: 0.19188643, b: 1, a: 0}
+  defaultColor: {r: 0, g: 0.84705883, b: 1, a: 0}
+  activeColor: {r: 0, g: 0.84705883, b: 1, a: 0}
   push: {fileID: 1171254151299022634}
