@@ -25,14 +25,14 @@ public class BaseGesture : MonoBehaviour
 
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         m_GestureRecognizer = new GestureRecognizer();
         m_GestureRecognizer.StartCapturingGestures();
         m_GestureRecognizer.Tapped += OnTapped;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (m_GestureRecognizer != null)
         {
