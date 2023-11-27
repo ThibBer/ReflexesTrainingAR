@@ -21,14 +21,9 @@ public class Scores : IEnumerable<Score>
         m_HighScores = new List<Score>();
     }
 
-    private Scores(List<Score> scores)
-    {
-        m_HighScores = scores;
-    }
-
     public void Add(Score score)
     {
-        // So we avoid sorting/replacing the list if < MaxSize
+        // We avoid sorting/replacing the list if < MaxSize
         if (m_HighScores.Count >= MaxSize)
         {
             KeepLastScores();
