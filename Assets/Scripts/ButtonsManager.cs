@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ButtonsManager : MonoBehaviour
@@ -23,12 +24,14 @@ public class ButtonsManager : MonoBehaviour
     /// <summary>
     /// Number of tapped buttons
     /// </summary>
-    public int Tapped { get => m_GeneratedNumber - 1; }
+    public int Tapped => m_GeneratedNumber - 1;
 
     /// <summary>
     /// Total distance between all the generated buttons
     /// </summary>
     public float TotalDistance { get; private set; }
+
+    public event EventHandler<Button> ButtonGenerated;
     #endregion
 
     #region Methods
@@ -51,6 +54,8 @@ public class ButtonsManager : MonoBehaviour
         TotalDistance += m_CurrentButton != null ? Vector3.Distance(m_CurrentButton.transform.position, btn.transform.position) : 0;
         btn.IsActive = true;
         m_CurrentButton = btn;
+        
+        ButtonGenerated?.Invoke(this, btn);
     }
 
     private Vector3 GetRandomSphericalButtonPosition(Vector3 startPosition)
