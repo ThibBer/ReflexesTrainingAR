@@ -18,10 +18,30 @@ public class GameManager : BaseGesture
     [SerializeField]
     private HighScoreManager highScoreManager;
 
+    [SerializeField] 
+    private GameObject directionalArrow;
+
+    private Button m_LastGeneratedButton;
+    #endregion
+
+    #region Properties
+    
     public static int Score { get; private set; }
     #endregion
 
     #region Methods
+
+    protected override void Awake()
+    {
+        base.Awake();
+        buttonsManager.ButtonGenerated += OnButtonGenerated;
+    }
+
+    private void OnButtonGenerated(object sender, Button button)
+    {
+        m_LastGeneratedButton = button;
+    }
+
     public override void handleHit(RaycastHit hit)
     {
         var targetObject = hit.collider.gameObject;
@@ -47,5 +67,20 @@ public class GameManager : BaseGesture
         highScoreManager.AddScore(new Score(Score, DateTime.Now));
         SceneManager.LoadScene(2);
     }
+
+    private void Update()
+    {
+        if (m_LastGeneratedButton != null)
+        {
+            directionalArrow.transform.LookAt(m_LastGeneratedButton.transform);
+        }
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        buttonsManager.ButtonGenerated -= OnButtonGenerated;
+    }
+
     #endregion
 }
