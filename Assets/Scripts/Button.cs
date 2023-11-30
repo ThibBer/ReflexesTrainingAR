@@ -45,6 +45,16 @@ public class Button : MonoBehaviour
         push.GetComponent<Renderer>().material.color = color;
     }
 
+    private void OnGazeEnterEvent()
+    {
+        GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("red_cursor_circle");
+    }
+
+    private void OnGazeLeaveEvent()
+    {
+        GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("blue_cursor_circle");
+    }
+
     private void OnDestroy()
     {
         Debug.Log("Button destroyed");
