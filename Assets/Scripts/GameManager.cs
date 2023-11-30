@@ -49,7 +49,9 @@ public class GameManager : BaseGesture
         var button = targetObject.GetComponent<Button>();
         if (button != null && button.IsActive)
         {
+            button.PlaySound();
             button.IsActive = false;
+            
             buttonsManager.GenerateNextButton();
             SetTappedText();
         }
