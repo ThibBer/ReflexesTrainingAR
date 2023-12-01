@@ -189,3 +189,4 @@ MonoBehaviour:
   defaultColor: {r: 0, g: 0.84705883, b: 1, a: 0}
   activeColor: {r: 0, g: 0.84705883, b: 1, a: 0}
   push: {fileID: 1171254151299022634}
+  audioClip: {fileID: 8300000, guid: 53721b96e5c24348ac04abee8d510039, type: 3}
