@@ -7,6 +7,8 @@ public class Button : MonoBehaviour
     public Color defaultColor;
     public Color activeColor;
     public GameObject push;
+
+    [SerializeField] private AudioClip audioClip;
     
     private bool m_IsActive;
 
@@ -45,9 +47,9 @@ public class Button : MonoBehaviour
         push.GetComponent<Renderer>().material.color = color;
     }
 
-    private void OnDestroy()
+    public void PlaySound()
     {
-        Debug.Log("Button destroyed");
+        AudioSource.PlayClipAtPoint(audioClip, Camera.main.transform.position, 1);
     }
 
     #endregion
