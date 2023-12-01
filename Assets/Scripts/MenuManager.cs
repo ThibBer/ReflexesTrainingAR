@@ -29,7 +29,7 @@ public class MenuManager : BaseGesture
 
     public void About1()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(6);
     }
     #endregion
 }
