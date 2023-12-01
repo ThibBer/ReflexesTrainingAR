@@ -26,5 +26,10 @@ public class MenuManager : BaseGesture
     {
         SceneManager.LoadScene(3);
     }
+
+    public void About1()
+    {
+        SceneManager.LoadScene(5);
+    }
     #endregion
 }
