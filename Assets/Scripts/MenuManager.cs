@@ -29,7 +29,27 @@ public class MenuManager : BaseGesture
 
     public void About1()
     {
+        SceneManager.LoadScene(5);
+    }
+
+    public void About2()
+    {
         SceneManager.LoadScene(6);
+    }
+
+    public void About3()
+    {
+        SceneManager.LoadScene(7);
+    }
+
+    public void About4()
+    {
+        SceneManager.LoadScene(8);
+    }
+
+    public void About5()
+    {
+        SceneManager.LoadScene(9);
     }
     #endregion
 }
