@@ -57,7 +57,7 @@ public class Button : MonoBehaviour
         }
         else
         {
-            GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("blue_cursor_circle");
+            GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("white_cursor_circle");
         }
     }
 
