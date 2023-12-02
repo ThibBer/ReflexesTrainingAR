@@ -50,4 +50,18 @@ public class Scores : IEnumerable<Score>
             .Take(MaxSize-1) // n-1 last scores
             .ToList();
     }
+
+    public int GetHighestScore()
+    {
+        var highestScore = m_HighScores.OrderByDescending(s => s.GetScore()).FirstOrDefault();
+
+        if (!highestScore.Equals(default(Score)))
+        {
+            return highestScore.GetScore();
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
