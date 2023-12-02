@@ -16,16 +16,17 @@ public class EndGameManager : BaseGesture
     // Start is called before the first frame update
     private void Start()
     {
-        if (GameManager.isHighestScore)
+
+        if (GameManager.isHighestScore) // Display new best score message
         {
             highestScoreMessage.gameObject.SetActive(true);
-            Debug.Log("endgamemanager: you got a new high score");
         }
-        else
+        else // Display current highest score
         {
             highestScore.gameObject.SetActive(true);
             highestScore.text = highestScore.text + GameManager.highestScore;
         }
+        // Display current score
         score.text = score.text + GameManager.Score;
     }
     #endregion
