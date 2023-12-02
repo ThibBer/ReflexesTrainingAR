@@ -27,6 +27,11 @@ public class MenuManager : BaseGesture
         SceneManager.LoadScene(3);
     }
 
+    public void StartMenu()
+    {
+        SceneManager.LoadScene(10);
+    }
+
     public void About1()
     {
         SceneManager.LoadScene(5);
