@@ -46,15 +46,19 @@ public class Button : MonoBehaviour
     {
         push.GetComponent<Renderer>().material.color = color;
     }
-    
-    private void OnGazeEnterEvent()
-    {
-        GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("red_cursor_circle");
-    }
 
-    private void OnGazeLeaveEvent()
+    private void Update()
     {
-        GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("blue_cursor_circle");
+        RaycastHit HitInfo;
+        Transform cameraTransform = GameObject.Find("Cursor").gameObject.transform;
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out HitInfo, 100.0f))
+        {
+            GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("red_cursor_circle");
+        }
+        else
+        {
+            GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("blue_cursor_circle");
+        }
     }
 
     public void PlaySound()
