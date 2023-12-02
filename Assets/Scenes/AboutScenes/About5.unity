@@ -1372,7 +1372,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "R\xE9aliser le meilleur score\npossible en cliquant\nsur le plus de boutons\npossible"
+  m_Text: "R\xE9alisez le meilleur score\nen cliquant sur le plus\nde boutons possible"
 --- !u!222 &2006141518
 CanvasRenderer:
   m_ObjectHideFlags: 0
