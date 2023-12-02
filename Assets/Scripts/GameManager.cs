@@ -28,9 +28,9 @@ public class GameManager : BaseGesture
     
     public static int Score { get; private set; }
 
-    public static int highestScore { get; private set; }
+    public static int HighestScore { get; private set; }
 
-    public static bool isHighestScore { get; private set; }
+    public static bool IsHighestScore { get; private set; }
 
     #endregion
 
@@ -69,17 +69,10 @@ public class GameManager : BaseGesture
 
     public void OnEnd()
     {
-
-        isHighestScore = false;
         buttonsManager.RemoveLast();
         Score = Mathf.RoundToInt(buttonsManager.Tapped * buttonsManager.TotalDistance / ConfigurationDatabase.Instance.GameTimeSeconds);
-        highestScore = highScoreManager.GetHighestScore();
-
-        if (Score > highestScore)
-        {
-            isHighestScore = true;
-        }
-
+        HighestScore = highScoreManager.GetHighestScore();
+        IsHighestScore = Score > HighestScore;
         highScoreManager.AddScore(new Score(Score, DateTime.Now));
         SceneManager.LoadScene(2);
     }

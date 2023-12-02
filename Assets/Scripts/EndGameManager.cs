@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class EndGameManager : BaseGesture
+public class EndGameManager : MonoBehaviour
 {
     #region Fields
     [SerializeField]
@@ -17,14 +17,14 @@ public class EndGameManager : BaseGesture
     private void Start()
     {
 
-        if (GameManager.isHighestScore) // Display new best score message
+        if (GameManager.IsHighestScore) // Display new best score message
         {
             highestScoreMessage.gameObject.SetActive(true);
         }
         else // Display current highest score
         {
             highestScore.gameObject.SetActive(true);
-            highestScore.text = highestScore.text + GameManager.highestScore;
+            highestScore.text = highestScore.text + GameManager.HighestScore;
         }
         // Display current score
         score.text = score.text + GameManager.Score;

@@ -55,13 +55,10 @@ public class Scores : IEnumerable<Score>
     {
         var highestScore = m_HighScores.OrderByDescending(s => s.GetScore()).FirstOrDefault();
 
-        if (!highestScore.Equals(default(Score)))
-        {
-            return highestScore.GetScore();
-        }
-        else
+        if (highestScore.Equals(default(Score)))
         {
             return 0;
         }
+        return highestScore.GetScore();
     }
 }
