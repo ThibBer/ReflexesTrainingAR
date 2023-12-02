@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Linq;
 
 public class HighScoreManager : MonoBehaviour
 {
@@ -41,5 +40,8 @@ public class HighScoreManager : MonoBehaviour
         SaveHighScores();
     }
 
-    
+    public int GetHighestScore()
+    {
+        return m_HighScores.GetHighestScore();
+    }
 }
