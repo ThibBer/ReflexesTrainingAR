@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ScoresChart : MonoBehaviour
 {
     [SerializeField]
     private Sprite chartCircle;
+
+    private RectTransform textTemplateX;
+    private RectTransform textTemplateY;
 
     [SerializeField]
     private HighScoreManager highScoreManager;
@@ -17,6 +21,8 @@ public class ScoresChart : MonoBehaviour
     void Start()
     {
         chartContainer = transform.Find("ChartContainer").GetComponent<RectTransform>();
+        textTemplateX = chartContainer.Find("TextTemplateX").GetComponent<RectTransform>();
+        textTemplateY = chartContainer.Find("TextTemplateY").GetComponent<RectTransform>();
         // Fake scores for testing purpose
         var fakeScores = new Scores();
 
@@ -25,14 +31,16 @@ public class ScoresChart : MonoBehaviour
         fakeScores.Add(new Score(6, DateTime.Now));
         fakeScores.Add(new Score(2, DateTime.Now));
         fakeScores.Add(new Score(100, DateTime.Now.AddMinutes(5)));
-        fakeScores.Add(new Score(250, DateTime.Now.AddMinutes(5)));
+        fakeScores.Add(new Score(250, DateTime.Now.AddDays(-2)));
         fakeScores.Add(new Score(25, DateTime.Now));
         fakeScores.Add(new Score(30, DateTime.Now));
         fakeScores.Add(new Score(50, DateTime.Now));
         fakeScores.Add(new Score(25, DateTime.Now));
 
+        var fakeScoresArray = fakeScores.OrderBy(score => score.ScoreDateTime).ToArray();
+
         //DisplayChart(highScoreManager.HighScores);
-        DisplayChart(fakeScores);
+        DisplayChart(fakeScoresArray);
     }
 
     private GameObject CreateChartCircle(Vector2 position)
@@ -48,14 +56,14 @@ public class ScoresChart : MonoBehaviour
         return circleObject;
     }
 
-    private void DisplayChart(Scores scores)
+    private void DisplayChart(Score[] scores)
     {
         var height = chartContainer.sizeDelta.y;
         var maxHeight = 250f;
-        var width = 52f;
+        var width = 56f;
 
         GameObject lastCircleObject = null;
-        for(var i = 0; i < scores.Count; i++)
+        for(var i = 0; i < scores.Length; i++)
         {
             var xPos = i * width;
             var yPos = (scores[i].GetScore() / maxHeight) * height;
@@ -69,7 +77,12 @@ public class ScoresChart : MonoBehaviour
                 );
             }
             lastCircleObject = circleObject;
+
+            var labelTextX = Instantiate(textTemplateX);
+            SetUpXLabelText(labelTextX, xPos, scores[i]);
         }
+
+        SetUpYLabelsText(height, maxHeight);
     }
 
     private void ConnectCircles(Vector2 firstCirclePos, Vector2 secondCirclePos)
@@ -93,4 +106,31 @@ public class ScoresChart : MonoBehaviour
         transform.anchorMax = anchorMax;
         transform.anchoredPosition = anchoredPosition;
     }
+
+    private void SetUpXLabelText(RectTransform labelTextX, float xPos, Score score)
+    {
+        labelTextX.SetParent(chartContainer);
+        labelTextX.gameObject.SetActive(true);
+        labelTextX.anchoredPosition = new Vector2(xPos, -10f);
+        labelTextX.transform.Rotate(Vector3.forward, 45.0f);
+        labelTextX.GetComponent<Text>().text = DisplayDate(score.ScoreDateTime);
+    }
+
+    private void SetUpYLabelsText(float chartHeight, float maxHeight)
+    {
+        const int SeparatorCount = 10;
+
+        for (var i = 0; i < SeparatorCount; i++)
+        {
+            var labelTextY = Instantiate(textTemplateY);
+            labelTextY.SetParent(chartContainer);
+            labelTextY.gameObject.SetActive(true);
+            var normalizedValue = (float) i / SeparatorCount;
+            labelTextY.anchoredPosition = new Vector2(-34f, normalizedValue * chartHeight);
+            labelTextY.transform.Rotate(Vector3.forward, 45.0f);
+            labelTextY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * maxHeight).ToString();
+        }
+    }
+
+    private string DisplayDate(DateTime dateTime) => dateTime.ToString("dd/MM");
 }
