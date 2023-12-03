@@ -7,6 +7,9 @@ using System.Linq;
 
 public class ScoresChart : MonoBehaviour
 {
+    private const float yStartPosition = -7.5f;
+    private const float xStartPosition = -32f;
+
     [SerializeField]
     private Sprite chartCircle;
 
@@ -24,24 +27,8 @@ public class ScoresChart : MonoBehaviour
     void Start()
     {
         FindComponents();
-        // Fake scores for testing purpose
-        var fakeScores = new Scores();
-
-        fakeScores.Add(new Score(12, DateTime.Now.AddHours(2)));
-        fakeScores.Add(new Score(4, DateTime.Now.AddDays(2)));
-        fakeScores.Add(new Score(6, DateTime.Now));
-        fakeScores.Add(new Score(2, DateTime.Now));
-        fakeScores.Add(new Score(100, DateTime.Now.AddMinutes(5)));
-        fakeScores.Add(new Score(250, DateTime.Now.AddDays(-2)));
-        fakeScores.Add(new Score(25, DateTime.Now));
-        fakeScores.Add(new Score(30, DateTime.Now));
-        fakeScores.Add(new Score(50, DateTime.Now));
-        fakeScores.Add(new Score(25, DateTime.Now));
-
-        var fakeScoresArray = fakeScores.OrderBy(score => score.ScoreDateTime).ToArray();
-
-        //DisplayChart(highScoreManager.HighScores);
-        DisplayChart(fakeScoresArray);
+        var scores = highScoreManager.HighScores.OrderBy(score => score.ScoreDateTime).ToArray();
+        DisplayChart(scores);
     }
 
     private void FindComponents()
@@ -69,8 +56,8 @@ public class ScoresChart : MonoBehaviour
     private void DisplayChart(Score[] scores)
     {
         var height = chartContainer.sizeDelta.y;
-        var maxHeight = 250f;
-        var width = 56f;
+        var maxHeight = 300f;
+        var width = 50f;
 
         GameObject lastCircleObject = null;
         for(var i = 0; i < scores.Length; i++)
@@ -117,11 +104,11 @@ public class ScoresChart : MonoBehaviour
         transform.anchoredPosition = anchoredPosition;
     }
 
-    private void SetUpXLabelText(RectTransform labelTextX, float xPos, Score score, int gameNumber)
+    private void SetUpXLabelText(RectTransform labelTextX, float x, Score score, int gameNumber)
     {
         labelTextX.SetParent(chartContainer);
         labelTextX.gameObject.SetActive(true);
-        labelTextX.anchoredPosition = new Vector2(xPos, -10f);
+        labelTextX.anchoredPosition = new Vector2(x, yStartPosition);
         labelTextX.GetComponent<Text>().text = $"{gameNumber} ({DisplayDate(score.ScoreDateTime)})";
     }
 
@@ -131,36 +118,34 @@ public class ScoresChart : MonoBehaviour
 
         for (var i = 0; i < SeparatorCount; i++)
         {
-            var normalizedValue = (float)i / SeparatorCount;
+            var normalizedValue = (float) i / SeparatorCount;
 
-            var yPos = normalizedValue * chartHeight;
+            var y = normalizedValue * chartHeight;
             var labelTextY = Instantiate(textTemplateY);
             labelTextY.SetParent(chartContainer);
             labelTextY.gameObject.SetActive(true);
-            labelTextY.anchoredPosition = new Vector2(-34f, yPos);
+            labelTextY.anchoredPosition = new Vector2(xStartPosition, y);
             labelTextY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * maxHeight).ToString();
 
             CreateHorizontalDashLine(normalizedValue * chartHeight);
         }
     }
 
-    private void CreateVerticalDashLine(float xPos)
+    private void CreateVerticalDashLine(float x)
     {
         var gridDashX = Instantiate(verticalDashTemplate);
         gridDashX.SetParent(chartContainer, false);
         gridDashX.gameObject.SetActive(true);
-        gridDashX.anchoredPosition = new Vector2(xPos, -10f);
-        Debug.Log($"Grid X: {xPos}");
+        gridDashX.anchoredPosition = new Vector2(x, yStartPosition);
     }
 
-    private void CreateHorizontalDashLine(float yPos)
+    private void CreateHorizontalDashLine(float y)
     {
         var gridDashY = Instantiate(horizontalDashTemplate);
         gridDashY.SetParent(chartContainer, false);
         gridDashY.gameObject.SetActive(true);
-        gridDashY.anchoredPosition = new Vector2(-34f, yPos);
-        Debug.Log($"Grid Y: {yPos}");
+        gridDashY.anchoredPosition = new Vector2(xStartPosition, y);
     }
 
-    private string DisplayDate(DateTime dateTime) => dateTime.ToString("dd/MM");
+    private string DisplayDate(DateTime dateTime) => dateTime.ToString("dd-MM");
 }
