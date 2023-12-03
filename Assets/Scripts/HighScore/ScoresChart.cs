@@ -27,6 +27,7 @@ public class ScoresChart : MonoBehaviour
     void Start()
     {
         FindComponents();
+
         var scores = highScoreManager.HighScores.OrderBy(score => score.ScoreDateTime).ToArray();
         DisplayChart(scores);
     }
@@ -48,7 +49,7 @@ public class ScoresChart : MonoBehaviour
         var rectTransform = circleObject.GetComponent<RectTransform>();
 
         SetRectTransformAnchor(rectTransform, new Vector2(0, 0), new Vector2(0, 0), position);
-        rectTransform.sizeDelta = new Vector2(11, 11);
+        rectTransform.sizeDelta = new Vector2(8, 8);
 
         return circleObject;
     }
@@ -93,7 +94,7 @@ public class ScoresChart : MonoBehaviour
 
         var anchoredPosition = firstCirclePos + direction * distance * 0.5f;
         SetRectTransformAnchor(rectTransform, new Vector2(0, 0), new Vector2(0, 0), anchoredPosition);
-        rectTransform.sizeDelta = new Vector2(distance, 3f);
+        rectTransform.sizeDelta = new Vector2(distance, 2f);
         rectTransform.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.right, direction));
     }
 
