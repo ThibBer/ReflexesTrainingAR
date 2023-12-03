@@ -13,6 +13,9 @@ public class ScoresChart : MonoBehaviour
     private RectTransform textTemplateX;
     private RectTransform textTemplateY;
 
+    private RectTransform verticalDashTemplate;
+    private RectTransform horizontalDashTemplate;
+
     [SerializeField]
     private HighScoreManager highScoreManager;
 
@@ -20,9 +23,7 @@ public class ScoresChart : MonoBehaviour
 
     void Start()
     {
-        chartContainer = transform.Find("ChartContainer").GetComponent<RectTransform>();
-        textTemplateX = chartContainer.Find("TextTemplateX").GetComponent<RectTransform>();
-        textTemplateY = chartContainer.Find("TextTemplateY").GetComponent<RectTransform>();
+        FindComponents();
         // Fake scores for testing purpose
         var fakeScores = new Scores();
 
@@ -41,6 +42,15 @@ public class ScoresChart : MonoBehaviour
 
         //DisplayChart(highScoreManager.HighScores);
         DisplayChart(fakeScoresArray);
+    }
+
+    private void FindComponents()
+    {
+        chartContainer = transform.Find("ChartContainer").GetComponent<RectTransform>();
+        textTemplateX = chartContainer.Find("TextTemplateX").GetComponent<RectTransform>();
+        textTemplateY = chartContainer.Find("TextTemplateY").GetComponent<RectTransform>();
+        verticalDashTemplate = chartContainer.Find("VerticalDashTemplate").GetComponent<RectTransform>();
+        horizontalDashTemplate = chartContainer.Find("HorizontalDashTemplate").GetComponent<RectTransform>();
     }
 
     private GameObject CreateChartCircle(Vector2 position)
@@ -71,18 +81,18 @@ public class ScoresChart : MonoBehaviour
 
             if(lastCircleObject != null)
             {
-                ConnectCircles(
-                    lastCircleObject.GetComponent<RectTransform>().anchoredPosition, 
-                    circleObject.GetComponent<RectTransform>().anchoredPosition
-                );
+                ConnectCircles(lastCircleObject.GetComponent<RectTransform>().anchoredPosition, 
+                    circleObject.GetComponent<RectTransform>().anchoredPosition);
             }
+
             lastCircleObject = circleObject;
 
             var labelTextX = Instantiate(textTemplateX);
-            SetUpXLabelText(labelTextX, xPos, scores[i]);
+            SetUpXLabelText(labelTextX, xPos, scores[i], i+1);
+            CreateVerticalDashLine(xPos);
         }
 
-        SetUpYLabelsText(height, maxHeight);
+        SetUpYAxis(height, maxHeight);
     }
 
     private void ConnectCircles(Vector2 firstCirclePos, Vector2 secondCirclePos)
@@ -107,29 +117,49 @@ public class ScoresChart : MonoBehaviour
         transform.anchoredPosition = anchoredPosition;
     }
 
-    private void SetUpXLabelText(RectTransform labelTextX, float xPos, Score score)
+    private void SetUpXLabelText(RectTransform labelTextX, float xPos, Score score, int gameNumber)
     {
         labelTextX.SetParent(chartContainer);
         labelTextX.gameObject.SetActive(true);
         labelTextX.anchoredPosition = new Vector2(xPos, -10f);
-        labelTextX.transform.Rotate(Vector3.forward, 45.0f);
-        labelTextX.GetComponent<Text>().text = DisplayDate(score.ScoreDateTime);
+        labelTextX.GetComponent<Text>().text = $"{gameNumber} ({DisplayDate(score.ScoreDateTime)})";
     }
 
-    private void SetUpYLabelsText(float chartHeight, float maxHeight)
+    private void SetUpYAxis(float chartHeight, float maxHeight)
     {
         const int SeparatorCount = 10;
 
         for (var i = 0; i < SeparatorCount; i++)
         {
+            var normalizedValue = (float)i / SeparatorCount;
+
+            var yPos = normalizedValue * chartHeight;
             var labelTextY = Instantiate(textTemplateY);
             labelTextY.SetParent(chartContainer);
             labelTextY.gameObject.SetActive(true);
-            var normalizedValue = (float) i / SeparatorCount;
-            labelTextY.anchoredPosition = new Vector2(-34f, normalizedValue * chartHeight);
-            labelTextY.transform.Rotate(Vector3.forward, 45.0f);
+            labelTextY.anchoredPosition = new Vector2(-34f, yPos);
             labelTextY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * maxHeight).ToString();
+
+            CreateHorizontalDashLine(normalizedValue * chartHeight);
         }
+    }
+
+    private void CreateVerticalDashLine(float xPos)
+    {
+        var gridDashX = Instantiate(verticalDashTemplate);
+        gridDashX.SetParent(chartContainer, false);
+        gridDashX.gameObject.SetActive(true);
+        gridDashX.anchoredPosition = new Vector2(xPos, -10f);
+        Debug.Log($"Grid X: {xPos}");
+    }
+
+    private void CreateHorizontalDashLine(float yPos)
+    {
+        var gridDashY = Instantiate(horizontalDashTemplate);
+        gridDashY.SetParent(chartContainer, false);
+        gridDashY.gameObject.SetActive(true);
+        gridDashY.anchoredPosition = new Vector2(-34f, yPos);
+        Debug.Log($"Grid Y: {yPos}");
     }
 
     private string DisplayDate(DateTime dateTime) => dateTime.ToString("dd/MM");
