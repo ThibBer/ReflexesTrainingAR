@@ -24,7 +24,7 @@ public class ScoresChart : MonoBehaviour
 
     private RectTransform chartContainer;
 
-    void Start()
+    private void Start()
     {
         FindComponents();
 
