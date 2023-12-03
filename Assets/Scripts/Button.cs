@@ -47,6 +47,20 @@ public class Button : MonoBehaviour
         push.GetComponent<Renderer>().material.color = color;
     }
 
+    private void Update()
+    {
+        RaycastHit HitInfo;
+        Transform cameraTransform = GameObject.Find("Cursor").gameObject.transform;
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out HitInfo, 100.0f))
+        {
+            GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("red_cursor_circle");
+        }
+        else
+        {
+            GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("white_cursor_circle");
+        }
+    }
+
     public void PlaySound()
     {
         AudioSource.PlayClipAtPoint(audioClip, Camera.main.transform.position, 1);
