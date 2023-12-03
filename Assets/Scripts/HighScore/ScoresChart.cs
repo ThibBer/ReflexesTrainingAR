@@ -28,7 +28,13 @@ public class ScoresChart : MonoBehaviour
     {
         FindComponents();
 
-        var scores = highScoreManager.HighScores.OrderBy(score => score.ScoreDateTime).ToArray();
+        // Take the 10 last scores and then order by oldest -> newest
+        var scores = highScoreManager.HighScores
+            .OrderByDescending(score => score.ScoreDateTime)
+            .Take(10)
+            .Reverse()
+            .ToArray();
+
         DisplayChart(scores);
     }
 
