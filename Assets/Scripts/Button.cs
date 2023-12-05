@@ -4,9 +4,9 @@ public class Button : MonoBehaviour
 {
     #region Fields
     
-    public Color defaultColor;
-    public Color activeColor;
-    public GameObject mesh;
+    [SerializeField] private Color defaultColor;
+    [SerializeField] private Color activeColor;
+    [SerializeField] private GameObject mesh;
 
     [SerializeField] private AudioClip audioClip;
     
