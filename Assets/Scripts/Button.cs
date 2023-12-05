@@ -59,7 +59,7 @@ public class Button : MonoBehaviour
 
         var spriteName = Physics.Raycast(cameraTransform.position, cameraTransform.forward, out _, 100.0f)
             ? "red_cursor_circle"
-            : "white²²_cursor_circle";
+            : "white_cursor_circle";
         m_CursorSpriteRenderer.sprite = Resources.Load<Sprite>(spriteName);
     }
 
