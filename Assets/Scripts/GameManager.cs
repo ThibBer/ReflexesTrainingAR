@@ -64,7 +64,7 @@ public class GameManager : BaseGesture
 
     private void SetTappedText()
     {
-        tappedText.text = $"Tapped: {buttonsManager.Tapped}";
+        tappedText.text = $"Boutons: {buttonsManager.Tapped}";
     }
 
     public void OnEnd()
