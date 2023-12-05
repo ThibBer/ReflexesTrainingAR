@@ -40,10 +40,11 @@ public class ButtonsManager : MonoBehaviour
     {
         var cameraPosition = Camera.main.transform.position;
         var buttonPos = GetRandomSphericalButtonPosition(cameraPosition);
-        var buttonRotation = GetRotationToLookAtTarget(buttonPos, cameraPosition, -90);
 
-        var btn = Instantiate(prefabButton, buttonPos, buttonRotation);
+        var btn = Instantiate(prefabButton, buttonPos, Quaternion.identity);
+        
         btn.transform.localScale = m_DefaultButtonScale;
+        btn.transform.LookAt(cameraPosition);
 
         if (m_CurrentButton == null)
         {
@@ -66,16 +67,6 @@ public class ButtonsManager : MonoBehaviour
         var position = new Vector3(Mathf.Sin(yAngle), Mathf.Sin(xAngle), Mathf.Cos(yAngle));
 
         return startPosition + position * SpawnDistanceFromPlayer;
-    }
-
-    private Quaternion GetRotationToLookAtTarget(Vector3 origin, Vector3 target, float xOffset = 0)
-    {
-        var direction = target - origin;
-        
-        var xRotation = Mathf.Atan2(direction.z, direction.y) * 180f / Mathf.PI;
-        var yRotation = xOffset - Mathf.Atan2(direction.z, direction.x) * 180f / Mathf.PI;
-        
-        return Quaternion.Euler(xRotation, yRotation, 0);
     }
 
     public void RemoveLast()
