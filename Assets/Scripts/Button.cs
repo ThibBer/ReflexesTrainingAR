@@ -4,13 +4,16 @@ public class Button : MonoBehaviour
 {
     #region Fields
     
-    public Color defaultColor;
-    public Color activeColor;
-    public GameObject push;
+    [SerializeField] private Color defaultColor;
+    [SerializeField] private Color activeColor;
+    [SerializeField] private GameObject mesh;
 
     [SerializeField] private AudioClip audioClip;
     
     private bool m_IsActive;
+    
+    private GameObject m_Cursor;
+    private SpriteRenderer m_CursorSpriteRenderer;
 
     #endregion
 
@@ -33,6 +36,9 @@ public class Button : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        m_Cursor = GameObject.Find("Cursor");
+        m_CursorSpriteRenderer = m_Cursor.GetComponent<SpriteRenderer>();
+        
         UpdateColor();
     }
 
@@ -44,21 +50,17 @@ public class Button : MonoBehaviour
 
     private void SetColor(Color color)
     {
-        push.GetComponent<Renderer>().material.color = color;
+        mesh.GetComponent<Renderer>().material.color = color;
     }
 
     private void Update()
     {
-        RaycastHit HitInfo;
-        Transform cameraTransform = GameObject.Find("Cursor").gameObject.transform;
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out HitInfo, 100.0f))
-        {
-            GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("red_cursor_circle");
-        }
-        else
-        {
-            GameObject.Find("Cursor").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("white_cursor_circle");
-        }
+        var cameraTransform = m_Cursor.gameObject.transform;
+
+        var spriteName = Physics.Raycast(cameraTransform.position, cameraTransform.forward, out _, 100.0f)
+            ? "red_cursor_circle"
+            : "white_cursor_circle";
+        m_CursorSpriteRenderer.sprite = Resources.Load<Sprite>(spriteName);
     }
 
     public void PlaySound()
