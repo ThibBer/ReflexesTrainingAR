@@ -23,12 +23,13 @@ public class Scores : IEnumerable<Score>
 
     public void Add(Score score)
     {
+        m_HighScores.Add(score);
+
         // We avoid sorting/replacing the list if < MaxSize
         if (m_HighScores.Count >= MaxSize)
         {
             KeepLastScores();
         }
-        m_HighScores.Add(score);
     }
 
     public Scores GetCopy()
@@ -44,10 +45,10 @@ public class Scores : IEnumerable<Score>
 
     private void KeepLastScores()
     {
-        // Can't save the best scores only (for the future chart displaying the score over time)
+        // Keep the n latests scores only
         m_HighScores = m_HighScores
-            .OrderByDescending(s => s.ScoreDateTime)
-            .Take(MaxSize-1) // n-1 last scores
+            .OrderByDescending(s => s.GetTimestamp())
+            .Take(MaxSize) // n last scores
             .ToList();
     }
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
@@ -30,7 +28,7 @@ public class HighScoresTab : MonoBehaviour
         var rank = 0;
         highScores
             .OrderByDescending(hs => hs.GetScore())
-            .ThenByDescending(hs => hs.GetScoreDate())
+            .ThenByDescending(hs => hs.GetTimestamp())
             .Take(MaxHighScores)
             .ToList()
             .ForEach(score => 
@@ -44,7 +42,9 @@ public class HighScoresTab : MonoBehaviour
 
                 entryTransform.Find("PosEntry").GetComponent<Text>().text = rank.ToString();
                 entryTransform.Find("ScoreEntry").GetComponent<Text>().text = score.GetScore().ToString();
-                entryTransform.Find("DateEntry").GetComponent<Text>().text = score.GetScoreDate();
+                entryTransform.Find("DateEntry").GetComponent<Text>().text = DisplayDate(score.GetTimestamp());
             });
     }
+
+    private string DisplayDate(long timestamp) => DateUtils.TimestampToFormattedTime(timestamp, "MMMM dd yyyy - H:mm:ss");
 }

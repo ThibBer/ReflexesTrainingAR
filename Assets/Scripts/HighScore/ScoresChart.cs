@@ -7,8 +7,9 @@ using System.Linq;
 
 public class ScoresChart : MonoBehaviour
 {
-    private const float yStartPosition = -7.5f;
-    private const float xStartPosition = -32f;
+    private const float YStartPosition = -7.5f;
+    private const float XStartPosition = -32f;
+    private float yMaxValue = 150f;
 
     [SerializeField]
     private Sprite chartCircle;
@@ -27,17 +28,24 @@ public class ScoresChart : MonoBehaviour
     private void Start()
     {
         FindComponents();
-
+        
         // Take the 10 last scores and then order by oldest -> newest
         var scores = highScoreManager.HighScores
-            .OrderByDescending(score => score.ScoreDateTime)
+            .OrderByDescending(score => score.GetTimestamp())
             .Take(10)
             .Reverse()
             .ToArray();
 
+        if(scores != null && scores.Length > 0)
+        {
+            yMaxValue = DefineYMax(scores.Max(s => s.GetScore()));
+        }
+        
         DisplayChart(scores);
     }
 
+    private int DefineYMax(int maxScore) => maxScore > 0 ? maxScore + (maxScore / 10) : Mathf.FloorToInt(yMaxValue);
+         
     private void FindComponents()
     {
         chartContainer = transform.Find("ChartContainer").GetComponent<RectTransform>();
@@ -63,14 +71,13 @@ public class ScoresChart : MonoBehaviour
     private void DisplayChart(Score[] scores)
     {
         var height = chartContainer.sizeDelta.y;
-        var maxHeight = 300f;
         var width = 50f;
 
         GameObject lastCircleObject = null;
         for(var i = 0; i < scores.Length; i++)
         {
             var xPos = i * width;
-            var yPos = (scores[i].GetScore() / maxHeight) * height;
+            var yPos = (scores[i].GetScore() / yMaxValue) * height;
             var circleObject = CreateChartCircle(new Vector2(xPos, yPos));
 
             if(lastCircleObject != null)
@@ -86,7 +93,7 @@ public class ScoresChart : MonoBehaviour
             CreateVerticalDashLine(xPos);
         }
 
-        SetUpYAxis(height, maxHeight);
+        SetUpYAxis(height, yMaxValue);
     }
 
     private void ConnectCircles(Vector2 firstCirclePos, Vector2 secondCirclePos)
@@ -115,8 +122,8 @@ public class ScoresChart : MonoBehaviour
     {
         labelTextX.SetParent(chartContainer);
         labelTextX.gameObject.SetActive(true);
-        labelTextX.anchoredPosition = new Vector2(x, yStartPosition);
-        labelTextX.GetComponent<Text>().text = $"{gameNumber} ({DisplayDate(score.ScoreDateTime)})";
+        labelTextX.anchoredPosition = new Vector2(x, YStartPosition);
+        labelTextX.GetComponent<Text>().text = $"{DisplayDate(score.GetTimestamp())}";
     }
 
     private void SetUpYAxis(float chartHeight, float maxHeight)
@@ -131,7 +138,7 @@ public class ScoresChart : MonoBehaviour
             var labelTextY = Instantiate(textTemplateY);
             labelTextY.SetParent(chartContainer);
             labelTextY.gameObject.SetActive(true);
-            labelTextY.anchoredPosition = new Vector2(xStartPosition, y);
+            labelTextY.anchoredPosition = new Vector2(XStartPosition, y);
             labelTextY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * maxHeight).ToString();
 
             CreateHorizontalDashLine(normalizedValue * chartHeight);
@@ -143,7 +150,7 @@ public class ScoresChart : MonoBehaviour
         var gridDashX = Instantiate(verticalDashTemplate);
         gridDashX.SetParent(chartContainer, false);
         gridDashX.gameObject.SetActive(true);
-        gridDashX.anchoredPosition = new Vector2(x, yStartPosition);
+        gridDashX.anchoredPosition = new Vector2(x, YStartPosition);
     }
 
     private void CreateHorizontalDashLine(float y)
@@ -151,8 +158,8 @@ public class ScoresChart : MonoBehaviour
         var gridDashY = Instantiate(horizontalDashTemplate);
         gridDashY.SetParent(chartContainer, false);
         gridDashY.gameObject.SetActive(true);
-        gridDashY.anchoredPosition = new Vector2(xStartPosition, y);
+        gridDashY.anchoredPosition = new Vector2(XStartPosition, y);
     }
 
-    private string DisplayDate(DateTime dateTime) => dateTime.ToString("dd-MM");
+    private string DisplayDate(long timestamp) => DateUtils.TimestampToFormattedTime(timestamp, "dd-MM");
 }
