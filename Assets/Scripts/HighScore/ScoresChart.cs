@@ -36,15 +36,19 @@ public class ScoresChart : MonoBehaviour
             .Reverse()
             .ToArray();
 
+        // Define the max Y value based on the highest score
         if(scores != null && scores.Length > 0)
         {
-            yMaxValue = DefineYMax(scores.Max(s => s.GetScore()));
+            DefineYMax(scores.Max(s => s.GetScore()));
         }
         
         DisplayChart(scores);
     }
 
-    private int DefineYMax(int maxScore) => maxScore > 0 ? maxScore + (maxScore / 10) : Mathf.FloorToInt(yMaxValue);
+    private void DefineYMax(int maxScore)
+    {
+        yMaxValue = maxScore > 0 ? maxScore + Mathf.Ceil(maxScore / 10f) : yMaxValue;
+    }
          
     private void FindComponents()
     {
