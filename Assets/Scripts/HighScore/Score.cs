@@ -8,21 +8,16 @@ public struct Score
     [SerializeField]
     private int score;
     [SerializeField]
-    private string scoreDate;
+    private long timestamp;
 
-    // Needed to order the scores by date for the chart
-    public DateTime ScoreDateTime { get; }
-
-    public Score(int score, DateTime scoreDate)
+    public Score(int score, long timestamp)
     {
-        this.score = score;
-        ScoreDateTime = scoreDate;
         // JsonUtility can't serialize DateTime
-        // Format exemple: November 12 2023 - 16:50:30
-        this.scoreDate = scoreDate.ToString("MMMM dd yyyy - H:mm:ss");
+        this.score = score;
+        this.timestamp = timestamp;
     }
 
     public int GetScore() => score;
 
-    public string GetScoreDate() => scoreDate;
+    public long GetTimestamp() => timestamp;
 }

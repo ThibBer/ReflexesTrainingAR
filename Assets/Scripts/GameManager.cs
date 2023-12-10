@@ -73,7 +73,7 @@ public class GameManager : BaseGesture
         Score = Mathf.RoundToInt(buttonsManager.Tapped * buttonsManager.TotalDistance / ConfigurationDatabase.Instance.GameTimeSeconds);
         HighestScore = highScoreManager.GetHighestScore();
         IsHighestScore = Score > HighestScore;
-        highScoreManager.AddScore(new Score(Score, DateTime.Now));
+        highScoreManager.AddScore(new Score(Score, DateUtils.DateTimeToTimestamp(DateTime.Now)));
         SceneManager.LoadScene(2);
     }
 
